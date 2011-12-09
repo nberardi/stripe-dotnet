@@ -19,7 +19,9 @@ namespace Stripe.Tests
 		[Test]
 		public void CreatePlan_Test()
 		{
-			var response = _client.CreatePlan("gold", 400M, "usd", PlanFrequency.Month, "Gold");
+			var id = Guid.NewGuid().ToString();
+
+			var response = _client.CreatePlan(id, 400M, "usd", PlanFrequency.Month, id);
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);

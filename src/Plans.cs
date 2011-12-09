@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using RestSharp;
 using RestSharp.Validation;
 using Stripe.Models;
@@ -12,7 +10,7 @@ namespace Stripe
 	{
 		public PlanResponse CreatePlan(string planId, decimal amount, string currency, PlanFrequency interval, string name, int? trialPeriodDays = null)
 		{
-			Require.Argument("id", planId);
+			Require.Argument("planId", planId);
 			Require.Argument("amount", amount);
 			Require.Argument("currency", currency);
 			Require.Argument("interval", interval);
