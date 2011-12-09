@@ -43,6 +43,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Charges.cs" />
+    <Compile Include="Coupons.cs" />
+    <Compile Include="Models\DeletedCouponResponse.cs" />
+    <Compile Include="Models\CouponDuration.cs" />
+    <Compile Include="Models\CouponResponse.cs" />
     <Compile Include="Models\CustomerSubscriptionPlanResponse.cs" />
     <Compile Include="Models\CustomerSubscriptionResponse.cs" />
     <Compile Include="Subscriptions.cs" />
