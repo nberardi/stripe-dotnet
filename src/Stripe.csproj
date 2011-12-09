@@ -44,11 +44,15 @@
   <ItemGroup>
     <Compile Include="Charges.cs" />
     <Compile Include="Coupons.cs" />
+    <Compile Include="Invoices.cs" />
+    <Compile Include="Models\DeletedInvoiceItemResponse.cs" />
     <Compile Include="Models\DeletedCouponResponse.cs" />
     <Compile Include="Models\CouponDuration.cs" />
     <Compile Include="Models\CouponResponse.cs" />
     <Compile Include="Models\CustomerSubscriptionPlanResponse.cs" />
     <Compile Include="Models\CustomerSubscriptionResponse.cs" />
+    <Compile Include="Models\InvoiceItemResponse.cs" />
+    <Compile Include="Models\InvoiceResponse.cs" />
     <Compile Include="Subscriptions.cs" />
     <Compile Include="Customers.cs" />
     <Compile Include="Models\ListResponse.cs" />

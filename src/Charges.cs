@@ -21,9 +21,7 @@ namespace Stripe
 			request.Method = Method.POST;
 			request.Resource = "charges";
 
-			int inCents = Convert.ToInt32(amount * 100M);
-
-			request.AddParameter("amount", inCents);
+			request.AddParameter("amount", Convert.ToInt32(amount * 100M));
 			request.AddParameter("currency", currency);
 			request.AddParameter("customer", customerId);
 			if (description.HasValue()) request.AddParameter("description", description);
@@ -50,9 +48,7 @@ namespace Stripe
 			request.Method = Method.POST;
 			request.Resource = "charges";
 
-			int inCents = Convert.ToInt32(amount * 100M);
-
-			request.AddParameter("amount", inCents);
+			request.AddParameter("amount", Convert.ToInt32(amount * 100M));
 			request.AddParameter("currency", currency);
 			request.AddParameter("card[number]", card.Number);
 			request.AddParameter("card[exp_month]", card.ExpMonth);
@@ -95,9 +91,7 @@ namespace Stripe
 				if (amount.Value < 0.5M)
 					throw new ArgumentOutOfRangeException("amount", amount, "Amount must be at least 50 cents");
 
-				int inCents = Convert.ToInt32(amount.Value * 100M);
-
-				request.AddParameter("amount", inCents);
+				request.AddParameter("amount", Convert.ToInt32(amount * 100M));
 			}
 
 			return Execute<ChargeResponse>(request);
