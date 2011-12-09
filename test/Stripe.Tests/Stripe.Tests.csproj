@@ -48,6 +48,7 @@
     <Compile Include="ChargeTests.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="CardTokenTests.cs" />
+    <Compile Include="InvoiceTests.cs" />
     <Compile Include="CouponTests.cs" />
     <Compile Include="SubscriptionTests.cs" />
     <Compile Include="PlanTests.cs" />
