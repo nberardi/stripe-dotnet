@@ -104,15 +104,15 @@ namespace Stripe
 			return Execute<DeletedCustomerResponse>(request);
 		}
 
-		public CustomerListResponse ListCustomers(int count = 10, int offset = 0)
+		public ListResponse<CustomerResponse> ListCustomers(int? count = null, int? offset = null)
 		{
 			var request = new RestRequest();
 			request.Resource = "customers";
 
-			request.AddParameter("count", count);
-			request.AddParameter("offset", offset);
+			if (count.HasValue) request.AddParameter("count", count.Value);
+			if (offset.HasValue) request.AddParameter("offset", offset.Value);
 
-			return Execute<CustomerListResponse>(request);
+			return Execute<ListResponse<CustomerResponse>>(request);
 		}
 	}
 }
