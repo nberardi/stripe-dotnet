@@ -6,7 +6,7 @@ namespace Stripe.Models
 	public class ChargeResponse : StripeBase
 	{
 		public int Amount { get; set; }
-		public decimal Fee { get; set; }
+		public int Fee { get; set; }
 		public string Currency { get; set; }
 		public long Created { get; set; }
 		public string Description { get; set; }

@@ -103,7 +103,7 @@ namespace Stripe
 			return Execute<ChargeResponse>(request);
 		}
 
-		public ChargeListResponse ListCharges(string customerId = null, int? count = null, int? offset = null)
+		public ListResponse<ChargeResponse> ListCharges(string customerId = null, int? count = null, int? offset = null)
 		{
 			var request = new RestRequest();
 			request.Resource = "charges";
@@ -112,7 +112,7 @@ namespace Stripe
 			if (offset.HasValue) request.AddParameter("offset", offset.Value);
 			if (customerId.HasValue()) request.AddParameter("customer", customerId);
 
-			return Execute<ChargeListResponse>(request);
+			return Execute<ListResponse<ChargeResponse>>(request);
 		}
 	}
 }

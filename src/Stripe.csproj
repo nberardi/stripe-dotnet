@@ -44,17 +44,20 @@
   <ItemGroup>
     <Compile Include="Charges.cs" />
     <Compile Include="Customers.cs" />
-    <Compile Include="Models\ChargeListResponse.cs" />
+    <Compile Include="Models\ListResponse.cs" />
     <Compile Include="Models\ChargeResponse.cs" />
+    <Compile Include="Models\DeletedPlanResponse.cs" />
     <Compile Include="Models\DeletedCustomerResponse.cs" />
+    <Compile Include="Models\PlanFrequency.cs" />
+    <Compile Include="Models\PlanResponse.cs" />
     <Compile Include="Models\TokenResponse.cs" />
-    <Compile Include="Models\CustomerListResponse.cs" />
     <Compile Include="Models\CreditCardRequest.cs" />
     <Compile Include="Models\CreditCardResponse.cs" />
     <Compile Include="Models\CustomerResponse.cs" />
     <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="Models\Error.cs" />
     <Compile Include="Models\StripeBase.cs" />
+    <Compile Include="Plans.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StripeAuthenticator.cs" />
     <Compile Include="StripeClient.cs" />

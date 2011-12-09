@@ -48,6 +48,7 @@
     <Compile Include="ChargeTests.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="CardTokenTests.cs" />
+    <Compile Include="PlanTests.cs" />
     <Compile Include="CustomerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
