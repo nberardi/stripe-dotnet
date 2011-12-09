@@ -43,6 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Charges.cs" />
+    <Compile Include="Models\CustomerSubscriptionPlanResponse.cs" />
+    <Compile Include="Models\CustomerSubscriptionResponse.cs" />
+    <Compile Include="Subscriptions.cs" />
     <Compile Include="Customers.cs" />
     <Compile Include="Models\ListResponse.cs" />
     <Compile Include="Models\ChargeResponse.cs" />
