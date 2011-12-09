@@ -49,7 +49,7 @@ namespace Stripe
 
 		public DeletedPlanResponse DeletePlan(string planId)
 		{
-			Require.Argument("customerId", planId);
+			Require.Argument("planId", planId);
 
 			var request = new RestRequest();
 			request.Method = Method.DELETE;

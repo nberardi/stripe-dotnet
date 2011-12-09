@@ -6,7 +6,7 @@ using Stripe.Models;
 namespace Stripe.Tests
 {
 	[TestFixture]
-	public class PlanTests
+	public class CouponTests
 	{
 		private StripeClient _client;
 
@@ -17,11 +17,9 @@ namespace Stripe.Tests
 		}
 
 		[Test]
-		public void CreatePlan_Test()
+		public void CreateCoupon_Test()
 		{
-			var id = Guid.NewGuid().ToString();
-
-			var response = _client.CreatePlan(id, 400M, "usd", PlanFrequency.Month, id);
+			var response = _client.CreateCoupon(75, CouponDuration.Once);
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
@@ -29,36 +27,32 @@ namespace Stripe.Tests
 		}
 
 		[Test]
-		public void RetrievePlan_Test()
+		public void RetrieveCoupon_Test()
 		{
-			var id = Guid.NewGuid().ToString();
-
-			var plan = _client.CreatePlan(id, 400M, "usd", PlanFrequency.Month, id);
-			var response = _client.RetreivePlan(plan.Id);
+			var coupon = _client.CreateCoupon(75, CouponDuration.Once);
+			var response = _client.RetreiveCoupon(coupon.Id);
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
-			Assert.AreEqual(plan.Id, response.Id);
+			Assert.AreEqual(coupon.Id, response.Id);
 		}
 
 		[Test]
-		public void DeletePlan_Test()
+		public void DeleteCustomer_Test()
 		{
-			var id = Guid.NewGuid().ToString();
-
-			var plan = _client.CreatePlan(id, 400M, "usd", PlanFrequency.Month, id);
-			var response = _client.DeletePlan(plan.Id);
+			var coupon = _client.CreateCoupon(75, CouponDuration.Once);
+			var response = _client.DeleteCoupon(coupon.Id);
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
 			Assert.IsTrue(response.Deleted);
-			Assert.AreEqual(plan.Id, response.Id);
+			Assert.AreEqual(coupon.Id, response.Id);
 		}
 
 		[Test]
-		public void ListPlans_Test()
+		public void ListCoupons_Test()
 		{
-			var response = _client.ListPlans();
+			var response = _client.ListCoupons();
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
