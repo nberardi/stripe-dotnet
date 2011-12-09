@@ -48,7 +48,7 @@ namespace Stripe
 			return Execute<TokenResponse>(request);
 		}
 
-		public TokenResponse RetrieveToken(string tokenId)
+		public TokenResponse RetrieveCardToken(string tokenId)
 		{
 			Require.Argument("tokenId", tokenId);
 
