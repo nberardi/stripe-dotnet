@@ -102,7 +102,7 @@ namespace Stripe
 			var request = new RestRequest();
 			request.Resource = "invoices/upcoming";
 
-			request.AddParameter("customerId", customerId);
+			request.AddParameter("customer", customerId);
 
 			return Execute<InvoiceResponse>(request);
 		}
