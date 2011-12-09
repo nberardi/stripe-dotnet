@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using RestSharp;
+using System.Net;
 
 namespace Stripe
 {
@@ -15,12 +16,7 @@ namespace Stripe
 
 		public void Authenticate(IRestClient client, IRestRequest request)
 		{
-			// only add the Authorization parameter if it hasn't been added by a previous Execute
-			if (!request.Parameters.Any(p => p.Name.Equals("Authorization", StringComparison.InvariantCultureIgnoreCase)))
-			{
-				var authHeader = string.Format("Basic {0}", _apiKey);
-				request.AddParameter("Authorization", authHeader, ParameterType.HttpHeader);
-			}
+			request.Credentials = new NetworkCredential(_apiKey, "");
 		}
 	}
 }

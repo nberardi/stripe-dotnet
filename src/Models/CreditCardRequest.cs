@@ -48,10 +48,5 @@ namespace Stripe.Models
 				ExpirationYear = value.Year;
 			}
 		}
-
-		public override string ToString()
-		{
-			return base.ToString();
-		}
 	}
 }
