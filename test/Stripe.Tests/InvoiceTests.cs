@@ -81,5 +81,38 @@ namespace Stripe.Tests
 			Assert.IsNotNull(response.Data);
 			Assert.IsTrue(response.Data.Count > 0);
 		}
+
+		[Test, Ignore]
+		public void RetrieveInvoice_Test()
+		{
+			var invoiceItem = _client.CreateInvoiceItem(_customer.Id, 100M, "usd");
+			var response = _client.RetreiveInvoice(invoiceItem.Id);
+
+			Assert.IsNotNull(response);
+			Assert.IsFalse(response.IsError);
+			Assert.AreEqual(invoiceItem.Id, response.Id);
+		}
+
+		[Test]
+		public void RetrieveCustomersUpcomingInvoice_Test()
+		{
+			var invoiceItem = _client.CreateInvoiceItem(_customer.Id, 100M, "usd");
+			var response = _client.RetreiveCustomersUpcomingInvoice(_customer.Id);
+
+			Assert.IsNotNull(response);
+			Assert.IsFalse(response.IsError);
+			Assert.IsTrue(response.Lines.Any(x => x.Id == invoiceItem.Id));
+		}
+
+		[Test, Ignore]
+		public void ListInvoices_Test()
+		{
+			var response = _client.ListInvoices();
+
+			Assert.IsNotNull(response);
+			Assert.IsFalse(response.IsError);
+			Assert.IsNotNull(response.Data);
+			Assert.IsTrue(response.Data.Count > 0);
+		}
 	}
 }
