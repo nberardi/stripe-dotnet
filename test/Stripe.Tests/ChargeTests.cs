@@ -18,8 +18,8 @@ namespace Stripe.Tests
 		{
 			_card = new CreditCardRequest {
 				Number = "4111111111111111",
-				ExpirationMonth = 3,
-				ExpirationYear = 2015
+				ExpMonth = 3,
+				ExpYear = 2015
 			};
 
 			_client = new StripeClient(Constants.ApiKey);
