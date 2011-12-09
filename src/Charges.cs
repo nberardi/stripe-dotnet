@@ -14,11 +14,16 @@ namespace Stripe
 			Require.Argument("currency", currency);
 			Require.Argument("customerId", customerId);
 
+			if (amount < 0.5M)
+				throw new ArgumentOutOfRangeException("amount", amount, "Amount must be at least 50 cents");
+
 			var request = new RestRequest();
 			request.Method = Method.POST;
 			request.Resource = "charges";
 
-			request.AddParameter("amount", amount);
+			int inCents = Convert.ToInt32(amount * 100M);
+
+			request.AddParameter("amount", inCents);
 			request.AddParameter("currency", currency);
 			request.AddParameter("customer", customerId);
 			if (description.HasValue()) request.AddParameter("description", description);
@@ -35,6 +40,9 @@ namespace Stripe
 			Require.Argument("card[exp_month]", card.ExpirationMonth);
 			Require.Argument("card[exp_year]", card.ExpirationYear);
 
+			if (amount < 0.5M)
+				throw new ArgumentOutOfRangeException("amount", amount, "Amount must be at least 50 cents");
+
 			Validate.IsBetween(card.ExpirationMonth, 1, 12);
 			Validate.IsBetween(card.ExpirationYear, DateTime.Now.Year, 2050);
 
@@ -42,7 +50,9 @@ namespace Stripe
 			request.Method = Method.POST;
 			request.Resource = "charges";
 
-			request.AddParameter("amount", amount);
+			int inCents = Convert.ToInt32(amount * 100M);
+
+			request.AddParameter("amount", inCents);
 			request.AddParameter("currency", currency);
 			request.AddParameter("card[number]", card.Number);
 			request.AddParameter("card[exp_month]", card.ExpirationMonth);
@@ -80,20 +90,27 @@ namespace Stripe
 			request.Resource = "charges/{chargeId}/refund";
 
 			request.AddUrlSegment("chargeId", chargeId);
-			if (amount.HasValue) request.AddParameter("amount", amount.Value);
+			if (amount.HasValue)
+			{
+				if (amount.Value < 0.5M)
+					throw new ArgumentOutOfRangeException("amount", amount, "Amount must be at least 50 cents");
+
+				int inCents = Convert.ToInt32(amount.Value * 100M);
+
+				request.AddParameter("amount", inCents);
+			}
 
 			return Execute<ChargeResponse>(request);
 		}
 
-		public ChargeListResponse ListCharges(string customerId = null, int count = 10, int offset = 0)
+		public ChargeListResponse ListCharges(string customerId = null, int? count = null, int? offset = null)
 		{
 			var request = new RestRequest();
 			request.Resource = "charges";
-
-			if (customerId.HasValue()) request.AddParameter("customer", customerId);
 			
-			request.AddParameter("count", count);
-			request.AddParameter("offset", offset);
+			if (count.HasValue) request.AddParameter("count", count.Value);
+			if (offset.HasValue) request.AddParameter("offset", offset.Value);
+			if (customerId.HasValue()) request.AddParameter("customer", customerId);
 
 			return Execute<ChargeListResponse>(request);
 		}

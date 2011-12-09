@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace Stripe.Models
 {
-	public class ChargeListResponse : StripeBase
+	public class CustomerListResponse : StripeBase
 	{
 		public int Count { get; set; }
-		public List<ChargeResponse> Data { get; set; }
+		public List<CustomerResponse> Data { get; set; }
 	}
 }

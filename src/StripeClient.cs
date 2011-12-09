@@ -48,8 +48,6 @@ namespace Stripe
 				}
 			};
 
-			request.DateFormat = "ddd, dd MMM yyyy HH:mm:ss '+0000'";
-
 			var response = _client.Execute<T>(request);
 			return response.Data;
 		}
