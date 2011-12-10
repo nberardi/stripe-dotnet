@@ -1,0 +1,21 @@
+﻿﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+	<metadata>
+		<id>Stripe</id>
+		<version>$version$</version>
+		<title>Stripe</title>
+		<authors>Nick Berardi</authors>
+		<owners>Stripe, Inc</owners>
+		<description>Stripe is a simple, developer-friendly way to accept payments online. We believe that enabling transactions on the web is a problem rooted in code, not finance, and we want to help put more websites in business.</description>
+		<summary>Stripe is a simple, developer-friendly way to accept payments online. We believe that enabling transactions on the web is a problem rooted in code, not finance, and we want to help put more websites in business.</summary>
+		<language>en-US</language>
+		<projectUrl>https://github.com/hoppio/stripe-dotnet</projectUrl>
+		<licenseUrl>https://github.com/hoppio/stripe-dotnet/raw/master/LICENSE.txt</licenseUrl>
+		<iconUrl>https://github.com/hoppio/stripe-dotnet/raw/master/nuget/Stripe.Logo.png</iconUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<tags>payment gateway rest api .net40</tags>
+		<dependencies>
+			<dependency id="RestSharp" />
+		</dependencies>
+	</metadata>
+</package>
