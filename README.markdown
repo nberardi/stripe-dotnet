@@ -15,7 +15,7 @@ PM> Install-Package Stripe
 # How can I start using this library?
 
 ```csharp
-var card = new CreditCardRequest {
+var card = new CreditCard {
     Number = "4111111111111111",
     ExpMonth = 3,
     ExpYear = 2015
