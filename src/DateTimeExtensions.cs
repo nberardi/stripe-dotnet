@@ -12,5 +12,10 @@ namespace Stripe
 			dt = dt.ToUniversalTime();
 			return Convert.ToInt64((dt - epoch).TotalSeconds);
 		}
+
+		public static DateTimeOffset ToDateTime(this long l)
+		{
+			return epoch.AddSeconds(l);
+		}
 	}
 }

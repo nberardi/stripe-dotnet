@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Stripe.Models
 {
-	public class ListResponse<T> : StripeBase
+	public class StripeList<T> : StripeBase
 	{
 		public int Count { get; set; }
 		public List<T> Data { get; set; }

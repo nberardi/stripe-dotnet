@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 
-namespace Stripe.Models
+namespace Stripe
 {
-	public class CreditCardRequest
+	public class CreditCard
 	{
 		/// <summary>
 		/// Cardholder's full name

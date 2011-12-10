@@ -9,7 +9,7 @@ namespace Stripe
 {
 	public partial class StripeClient
 	{
-		public CustomerResponse CreateCustomer(CreditCardRequest card = null, string coupon = null, string email = null, string description = null, string plan = null, DateTimeOffset? trialEnd = null)
+		public StripeCustomer CreateCustomer(CreditCard card = null, string coupon = null, string email = null, string description = null, string plan = null, DateTimeOffset? trialEnd = null)
 		{
 			if (card != null)
 			{
@@ -41,10 +41,10 @@ namespace Stripe
 			if (plan.HasValue()) request.AddParameter("plan", plan);
 			if (trialEnd.HasValue) request.AddParameter("trialEnd", trialEnd.Value.ToUnixEpoch());
 
-			return Execute<CustomerResponse>(request);
+			return Execute<StripeCustomer>(request);
 		}
 
-		public CustomerResponse RetrieveCustomer(string customerId)
+		public StripeCustomer RetrieveCustomer(string customerId)
 		{
 			Require.Argument("customerId", customerId);
 
@@ -53,10 +53,10 @@ namespace Stripe
 
 			request.AddUrlSegment("customerId", customerId);
 
-			return Execute<CustomerResponse>(request);
+			return Execute<StripeCustomer>(request);
 		}
 
-		public CustomerResponse UpdateCustomer(string customerId, CreditCardRequest card = null, string coupon = null, string email = null, string description = null)
+		public StripeCustomer UpdateCustomer(string customerId, CreditCard card = null, string coupon = null, string email = null, string description = null)
 		{
 			if (card != null)
 			{
@@ -88,10 +88,10 @@ namespace Stripe
 			if (email.HasValue()) request.AddParameter("email", email);
 			if (description.HasValue()) request.AddParameter("description", description);
 
-			return Execute<CustomerResponse>(request);
+			return Execute<StripeCustomer>(request);
 		}
 
-		public DeletedCustomerResponse DeleteCustomer(string customerId)
+		public StripeCustomer DeleteCustomer(string customerId)
 		{
 			Require.Argument("customerId", customerId);
 
@@ -101,10 +101,10 @@ namespace Stripe
 
 			request.AddUrlSegment("customerId", customerId);
 
-			return Execute<DeletedCustomerResponse>(request);
+			return Execute<StripeCustomer>(request);
 		}
 
-		public ListResponse<CustomerResponse> ListCustomers(int? count = null, int? offset = null)
+		public StripeList<StripeCustomer> ListCustomers(int? count = null, int? offset = null)
 		{
 			var request = new RestRequest();
 			request.Resource = "customers";
@@ -112,7 +112,7 @@ namespace Stripe
 			if (count.HasValue) request.AddParameter("count", count.Value);
 			if (offset.HasValue) request.AddParameter("offset", offset.Value);
 
-			return Execute<ListResponse<CustomerResponse>>(request);
+			return Execute<StripeList<StripeCustomer>>(request);
 		}
 	}
 }

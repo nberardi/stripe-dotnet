@@ -8,7 +8,7 @@ namespace Stripe
 {
 	public partial class StripeClient
 	{
-		public PlanResponse CreatePlan(string planId, decimal amount, string currency, PlanFrequency interval, string name, int? trialPeriodDays = null)
+		public StripePlan CreatePlan(string planId, decimal amount, string currency, PlanFrequency interval, string name, int? trialPeriodDays = null)
 		{
 			Require.Argument("planId", planId);
 			Require.Argument("amount", amount);
@@ -32,10 +32,10 @@ namespace Stripe
 			request.AddParameter("name", name);
 			if (trialPeriodDays.HasValue) request.AddParameter("trial_period_days", trialPeriodDays);
 
-			return Execute<PlanResponse>(request);
+			return Execute<StripePlan>(request);
 		}
 
-		public PlanResponse RetreivePlan(string planId)
+		public StripePlan RetreivePlan(string planId)
 		{
 			Require.Argument("planId", planId);
 
@@ -44,10 +44,10 @@ namespace Stripe
 
 			request.AddUrlSegment("planId", planId);
 
-			return Execute<PlanResponse>(request);
+			return Execute<StripePlan>(request);
 		}
 
-		public DeletedPlanResponse DeletePlan(string planId)
+		public StripePlan DeletePlan(string planId)
 		{
 			Require.Argument("planId", planId);
 
@@ -57,10 +57,10 @@ namespace Stripe
 
 			request.AddUrlSegment("planId", planId);
 
-			return Execute<DeletedPlanResponse>(request);
+			return Execute<StripePlan>(request);
 		}
 
-		public ListResponse<PlanResponse> ListPlans(int? count = null, int? offset = null)
+		public StripeList<StripePlan> ListPlans(int? count = null, int? offset = null)
 		{
 			var request = new RestRequest();
 			request.Resource = "plans";
@@ -68,7 +68,7 @@ namespace Stripe
 			if (count.HasValue) request.AddParameter("count", count.Value);
 			if (offset.HasValue) request.AddParameter("offset", offset.Value);
 
-			return Execute<ListResponse<PlanResponse>>(request);
+			return Execute<StripeList<StripePlan>>(request);
 		}
 	}
 }

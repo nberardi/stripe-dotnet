@@ -9,7 +9,7 @@ namespace Stripe
 {
 	public partial class StripeClient
 	{
-		public CustomerSubscriptionResponse UpdateCustomersSubscription(string customerId, string planId, string coupon = null, bool? prorate = null, DateTimeOffset? trialEnd = null, CreditCardRequest card = null)
+		public StripeSubscription UpdateCustomersSubscription(string customerId, string planId, string coupon = null, bool? prorate = null, DateTimeOffset? trialEnd = null, CreditCard card = null)
 		{
 			Require.Argument("customerId", customerId);
 			Require.Argument("planId", planId);
@@ -45,10 +45,10 @@ namespace Stripe
 				if (card.AddressCountry.HasValue()) request.AddParameter("card[address_country]", card.ExpYear);
 			}
 
-			return Execute<CustomerSubscriptionResponse>(request);
+			return Execute<StripeSubscription>(request);
 		}
 
-		public CustomerSubscriptionResponse CancelCustomersSubscription(string customerId, bool? atPeriodEnd = null)
+		public StripeSubscription CancelCustomersSubscription(string customerId, bool? atPeriodEnd = null)
 		{
 			Require.Argument("customerId", customerId);
 
@@ -60,7 +60,7 @@ namespace Stripe
 
 			if (atPeriodEnd.HasValue) request.AddParameter("at_period_end", atPeriodEnd.Value);
 
-			return Execute<CustomerSubscriptionResponse>(request);
+			return Execute<StripeSubscription>(request);
 		}
 	}
 }

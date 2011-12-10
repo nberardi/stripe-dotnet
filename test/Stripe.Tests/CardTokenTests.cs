@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using NUnit.Framework;
-using Stripe.Models;
 
 namespace Stripe.Tests
 {
@@ -10,12 +9,12 @@ namespace Stripe.Tests
 	{
 		private StripeClient _client;
 
-		private CreditCardRequest _card;
+		private CreditCard _card;
 
 		[SetUp]
 		public void Setup()
 		{
-			_card = new CreditCardRequest {
+			_card = new CreditCard {
 				Number = "4111111111111111",
 				ExpMonth = 3,
 				ExpYear = 2015

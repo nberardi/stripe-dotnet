@@ -9,7 +9,7 @@ namespace Stripe
 {
 	public partial class StripeClient
 	{
-		public TokenResponse CreateCardToken(CreditCardRequest card, decimal? amount = null, string currency = null)
+		public TokenResponse CreateCardToken(CreditCard card, decimal? amount = null, string currency = null)
 		{
 			Require.Argument("card", card);
 			Require.Argument("card[number]", card.Number);
