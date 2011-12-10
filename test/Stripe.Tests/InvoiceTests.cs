@@ -10,13 +10,13 @@ namespace Stripe.Tests
 	{
 		private StripeClient _client;
 
-		private CustomerResponse _customer;
-		private CreditCardRequest _card;
+		private StripeCustomer _customer;
+		private CreditCard _card;
 
 		[SetUp]
 		public void Setup()
 		{
-			_card = new CreditCardRequest {
+			_card = new CreditCard {
 				Number = "4111111111111111",
 				ExpMonth = 3,
 				ExpYear = 2015

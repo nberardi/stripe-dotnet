@@ -4,23 +4,23 @@ using System.Linq;
 
 namespace Stripe.Models
 {
-	public class InvoiceResponse : StripeBase
+	public class StripeInvoice : StripeBase
 	{
 		public long? Created { get; set; }
 		public int SubTotal { get; set; }
 		public int Total { get; set; }
-		public LinesWrapperResponse Lines { get; set; }
+		public LinesWrapper Lines { get; set; }
 		public string Id { get; set; }
 
 		public bool IsUpcoming { get { return Id == null; } }
 
-		public class LinesWrapperResponse : IEnumerable<InvoiceItemResponse>
+		public class LinesWrapper : IEnumerable<StripeInvoiceItem>
 		{
-			public List<InvoiceItemResponse> InvoiceItems { get; set; }
+			public List<StripeInvoiceItem> InvoiceItems { get; set; }
 
 			#region IEnumerable<InvoiceItemResponse> Members
 
-			public IEnumerator<InvoiceItemResponse> GetEnumerator()
+			public IEnumerator<StripeInvoiceItem> GetEnumerator()
 			{
 				return InvoiceItems.GetEnumerator();
 			}

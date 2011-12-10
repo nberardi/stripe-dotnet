@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Stripe.Models
 {
-	public class CreditCardResponse : StripeBase
+	public class StripeCard : StripeBase
 	{
 		public string Country { get; set; }
 		public string CvcCheck { get; set; }

@@ -9,7 +9,7 @@ namespace Stripe
 {
 	public partial class StripeClient
 	{
-		public CouponResponse CreateCoupon(int percentOff, CouponDuration duration, string couponId = null, int? durationInMonths = null, int? maxRedemptions = null, DateTimeOffset? redeemBy = null)
+		public StripeCoupon CreateCoupon(int percentOff, CouponDuration duration, string couponId = null, int? durationInMonths = null, int? maxRedemptions = null, DateTimeOffset? redeemBy = null)
 		{
 			Require.Argument("percentOff", percentOff);
 			Require.Argument("duration", duration);
@@ -37,10 +37,10 @@ namespace Stripe
 			if (maxRedemptions.HasValue) request.AddParameter("max_redemptions", maxRedemptions.Value);
 			if (redeemBy.HasValue) request.AddParameter("redeem_by", redeemBy.Value.ToUnixEpoch());
 
-			return Execute<CouponResponse>(request);
+			return Execute<StripeCoupon>(request);
 		}
 
-		public CouponResponse RetreiveCoupon(string couponId)
+		public StripeCoupon RetreiveCoupon(string couponId)
 		{
 			Require.Argument("couponId", couponId);
 
@@ -49,10 +49,10 @@ namespace Stripe
 
 			request.AddUrlSegment("couponId", couponId);
 
-			return Execute<CouponResponse>(request);
+			return Execute<StripeCoupon>(request);
 		}
 
-		public DeletedCouponResponse DeleteCoupon(string couponId)
+		public StripeCoupon DeleteCoupon(string couponId)
 		{
 			Require.Argument("couponId", couponId);
 
@@ -62,10 +62,10 @@ namespace Stripe
 
 			request.AddUrlSegment("couponId", couponId);
 
-			return Execute<DeletedCouponResponse>(request);
+			return Execute<StripeCoupon>(request);
 		}
 
-		public ListResponse<CouponResponse> ListCoupons(int? count = null, int? offset = null)
+		public StripeList<StripeCoupon> ListCoupons(int? count = null, int? offset = null)
 		{
 			var request = new RestRequest();
 			request.Resource = "coupons";
@@ -73,7 +73,7 @@ namespace Stripe
 			if (count.HasValue) request.AddParameter("count", count.Value);
 			if (offset.HasValue) request.AddParameter("offset", offset.Value);
 
-			return Execute<ListResponse<CouponResponse>>(request);
+			return Execute<StripeList<StripeCoupon>>(request);
 		}
 	}
 }

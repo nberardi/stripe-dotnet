@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Stripe.Models
 {
-	public class Error
+	public class StripeError
 	{
 		public string Type { get; set; }
 		public string Message { get; set; }

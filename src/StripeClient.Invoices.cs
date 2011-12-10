@@ -9,7 +9,7 @@ namespace Stripe
 {
 	public partial class StripeClient
 	{
-		public InvoiceItemResponse CreateInvoiceItem(string customerId, decimal amount, string currency, string description = null)
+		public StripeInvoiceItem CreateInvoiceItem(string customerId, decimal amount, string currency, string description = null)
 		{
 			Require.Argument("customerId", customerId);
 			Require.Argument("amount", amount);
@@ -24,10 +24,10 @@ namespace Stripe
 			request.AddParameter("currency", currency);
 			if (description.HasValue()) request.AddParameter("description", description);
 
-			return Execute<InvoiceItemResponse>(request);
+			return Execute<StripeInvoiceItem>(request);
 		}
 
-		public InvoiceItemResponse RetreiveInvoiceItem(string invoiceItemId)
+		public StripeInvoiceItem RetreiveInvoiceItem(string invoiceItemId)
 		{
 			Require.Argument("invoiceItemId", invoiceItemId);
 
@@ -36,10 +36,10 @@ namespace Stripe
 
 			request.AddUrlSegment("invoiceItemId", invoiceItemId);
 
-			return Execute<InvoiceItemResponse>(request);
+			return Execute<StripeInvoiceItem>(request);
 		}
 
-		public InvoiceItemResponse UpdateInvoiceItem(string invoiceItemId, decimal amount, string currency, string description = null)
+		public StripeInvoiceItem UpdateInvoiceItem(string invoiceItemId, decimal amount, string currency, string description = null)
 		{
 			Require.Argument("invoiceItemId", invoiceItemId);
 			Require.Argument("amount", amount);
@@ -55,10 +55,10 @@ namespace Stripe
 			request.AddParameter("currency", currency);
 			if (description.HasValue()) request.AddParameter("description", description);
 
-			return Execute<InvoiceItemResponse>(request);
+			return Execute<StripeInvoiceItem>(request);
 		}
 
-		public DeletedInvoiceItemResponse DeleteInvoiceItem(string invoiceItemId)
+		public StripeInvoiceItem DeleteInvoiceItem(string invoiceItemId)
 		{
 			Require.Argument("invoiceItemId", invoiceItemId);
 
@@ -68,10 +68,10 @@ namespace Stripe
 
 			request.AddUrlSegment("invoiceItemId", invoiceItemId);
 
-			return Execute<DeletedInvoiceItemResponse>(request);
+			return Execute<StripeInvoiceItem>(request);
 		}
 
-		public ListResponse<CouponResponse> ListInvoiceItems(string customerId = null, int? count = null, int? offset = null)
+		public StripeList<StripeCoupon> ListInvoiceItems(string customerId = null, int? count = null, int? offset = null)
 		{
 			var request = new RestRequest();
 			request.Resource = "invoiceitems";
@@ -80,10 +80,10 @@ namespace Stripe
 			if (count.HasValue) request.AddParameter("count", count.Value);
 			if (offset.HasValue) request.AddParameter("offset", offset.Value);
 
-			return Execute<ListResponse<CouponResponse>>(request);
+			return Execute<StripeList<StripeCoupon>>(request);
 		}
 
-		public InvoiceResponse RetreiveInvoice(string invoiceId)
+		public StripeInvoice RetreiveInvoice(string invoiceId)
 		{
 			Require.Argument("invoiceId", invoiceId);
 
@@ -92,10 +92,10 @@ namespace Stripe
 
 			request.AddUrlSegment("invoiceId", invoiceId);
 
-			return Execute<InvoiceResponse>(request);
+			return Execute<StripeInvoice>(request);
 		}
 
-		public InvoiceResponse RetreiveCustomersUpcomingInvoice(string customerId)
+		public StripeInvoice RetreiveCustomersUpcomingInvoice(string customerId)
 		{
 			Require.Argument("customerId", customerId);
 
@@ -104,10 +104,10 @@ namespace Stripe
 
 			request.AddParameter("customer", customerId);
 
-			return Execute<InvoiceResponse>(request);
+			return Execute<StripeInvoice>(request);
 		}
 
-		public ListResponse<InvoiceResponse> ListInvoices(string customerId = null, int? count = null, int? offset = null)
+		public StripeList<StripeInvoice> ListInvoices(string customerId = null, int? count = null, int? offset = null)
 		{
 			var request = new RestRequest();
 			request.Resource = "invoices";
@@ -116,7 +116,7 @@ namespace Stripe
 			if (count.HasValue) request.AddParameter("count", count.Value);
 			if (offset.HasValue) request.AddParameter("offset", offset.Value);
 
-			return Execute<ListResponse<InvoiceResponse>>(request);
+			return Execute<StripeList<StripeInvoice>>(request);
 		}
 	}
 }

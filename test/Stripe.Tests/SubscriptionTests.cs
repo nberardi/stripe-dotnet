@@ -8,8 +8,8 @@ namespace Stripe.Tests
 	[TestFixture]
 	public class SubscriptionTests
 	{
-		private PlanResponse _plan;
-		private CustomerResponse _customer;
+		private StripePlan _plan;
+		private StripeCustomer _customer;
 
 		private StripeClient _client;
 
@@ -19,7 +19,7 @@ namespace Stripe.Tests
 			_client = new StripeClient(Constants.ApiKey);
 
 			var id = Guid.NewGuid().ToString();
-			var card = new CreditCardRequest {
+			var card = new CreditCard {
 				Number = "4111111111111111",
 				ExpMonth = 3,
 				ExpYear = 2015

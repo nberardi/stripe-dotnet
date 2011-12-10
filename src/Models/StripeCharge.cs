@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Stripe.Models
 {
-	public class ChargeResponse : StripeBase
+	public class StripeCharge : StripeBase
 	{
 		public int Amount { get; set; }
 		public int Fee { get; set; }
@@ -15,6 +15,6 @@ namespace Stripe.Models
 		public bool Refunded { get; set; }
 		public bool Paid { get; set; }
 		public bool LiveMode { get; set; }
-		public CreditCardResponse Card { get; set; }
+		public StripeCard Card { get; set; }
 	}
 }

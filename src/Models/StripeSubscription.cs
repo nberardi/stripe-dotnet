@@ -3,11 +3,11 @@ using System.Linq;
 
 namespace Stripe.Models
 {
-	public class CustomerSubscriptionResponse : StripeBase
+	public class StripeSubscription : StripeBase
 	{
 		public long CurrentPeriodEnd { get; set; }
 		public string Status { get; set; }
-		public CustomerSubscriptionPlanResponse Plan { get; set; }
+		public StripeSubscriptionPlan Plan { get; set; }
 		public long CurrentPeriodStart { get; set; }
 		public long Start { get; set; }
 		public long TrialStart { get; set; }

@@ -32,7 +32,20 @@ if (response.Paid) {
 }
 ```
 
-## Authors
+## How do I get a DateTime from the response's UNIX time object?
+
+```csharp
+// ... same as above
+var response = api.CreateCharge(
+    amount: 100.00, // $100
+    currency: "usd",
+    card: card);
+    
+var date = response.Created.ToDateTime();
+Console.WriteLine("The charge was made on " + date);
+```
+
+# Authors
 
 *	Nick Berardi (https://github.com/nberardi)
 

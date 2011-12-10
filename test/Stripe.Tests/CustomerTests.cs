@@ -10,13 +10,13 @@ namespace Stripe.Tests
 	{
 		private StripeClient _client;
 
-		private CreditCardRequest _card;
+		private CreditCard _card;
 		private string _email = "test@hoppio.com";
 
 		[SetUp]
 		public void Setup()
 		{
-			_card = new CreditCardRequest {
+			_card = new CreditCard {
 				Number = "4111111111111111",
 				ExpMonth = 3,
 				ExpYear = 2015
@@ -49,7 +49,7 @@ namespace Stripe.Tests
 		[Test]
 		public void UpdateCustomer_Test()
 		{
-			var newCard = new CreditCardRequest {
+			var newCard = new CreditCard {
 				Number = "378734493671000",
 				ExpMonth = 12,
 				ExpYear = 2016

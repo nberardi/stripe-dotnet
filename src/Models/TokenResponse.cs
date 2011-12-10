@@ -11,6 +11,6 @@ namespace Stripe.Models
 		public int Amount { get; set; }
 		public bool LiveMode { get; set; }
 		public string Id { get; set; }
-		public CreditCardResponse Card { get; set; }
+		public StripeCard Card { get; set; }
 	}
 }
