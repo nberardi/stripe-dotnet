@@ -1,40 +1,22 @@
 ﻿using System;
 using System.Linq;
 using RestSharp;
-using RestSharp.Extensions;
-using Stripe.Models;
 using RestSharp.Validation;
+using Stripe.Models;
 
 namespace Stripe
 {
 	public partial class StripeClient
 	{
-		public StripeCustomer CreateCustomer(CreditCard card = null, string coupon = null, string email = null, string description = null, string plan = null, DateTimeOffset? trialEnd = null)
+		public StripeCustomer CreateCustomer(ICreditCard card = null, string coupon = null, string email = null, string description = null, string plan = null, DateTimeOffset? trialEnd = null)
 		{
-			if (card != null)
-			{
-				Require.Argument("card[number]", card.Number);
-				Require.Argument("card[exp_month]", card.ExpMonth);
-				Require.Argument("card[exp_year]", card.ExpYear);
-			}
+			if (card != null) card.Validate();
 
 			var request = new RestRequest();
 			request.Method = Method.POST;
 			request.Resource = "customers";
 
-			if (card != null)
-			{
-				request.AddParameter("card[number]", card.Number);
-				request.AddParameter("card[exp_month]", card.ExpMonth);
-				request.AddParameter("card[exp_year]", card.ExpYear);
-				if (card.Cvc.HasValue()) request.AddParameter("card[cvc]", card.ExpYear);
-				if (card.Name.HasValue()) request.AddParameter("card[name]", card.ExpYear);
-				if (card.AddressLine1.HasValue()) request.AddParameter("card[address_line1]", card.ExpYear);
-				if (card.AddressLine2.HasValue()) request.AddParameter("card[address_line2]", card.ExpYear);
-				if (card.AddressZip.HasValue()) request.AddParameter("card[address_zip]", card.ExpYear);
-				if (card.AddressState.HasValue()) request.AddParameter("card[address_state]", card.ExpYear);
-				if (card.AddressCountry.HasValue()) request.AddParameter("card[address_country]", card.ExpYear);
-			}
+			if (card != null) card.AddParametersToRequest(request);
 			if (coupon.HasValue()) request.AddParameter("coupon", coupon);
 			if (email.HasValue()) request.AddParameter("email", email);
 			if (description.HasValue()) request.AddParameter("description", description);
@@ -56,14 +38,9 @@ namespace Stripe
 			return Execute<StripeCustomer>(request);
 		}
 
-		public StripeCustomer UpdateCustomer(string customerId, CreditCard card = null, string coupon = null, string email = null, string description = null)
+		public StripeCustomer UpdateCustomer(string customerId, ICreditCard card = null, string coupon = null, string email = null, string description = null)
 		{
-			if (card != null)
-			{
-				Require.Argument("card[number]", card.Number);
-				Require.Argument("card[exp_month]", card.ExpMonth);
-				Require.Argument("card[exp_year]", card.ExpYear);
-			}
+			if (card != null) card.Validate();
 
 			var request = new RestRequest();
 			request.Method = Method.POST;
@@ -71,19 +48,7 @@ namespace Stripe
 
 			request.AddUrlSegment("customerId", customerId);
 
-			if (card != null)
-			{
-				request.AddParameter("card[number]", card.Number);
-				request.AddParameter("card[exp_month]", card.ExpMonth);
-				request.AddParameter("card[exp_year]", card.ExpYear);
-				if (card.Cvc.HasValue()) request.AddParameter("card[cvc]", card.ExpYear);
-				if (card.Name.HasValue()) request.AddParameter("card[name]", card.ExpYear);
-				if (card.AddressLine1.HasValue()) request.AddParameter("card[address_line1]", card.ExpYear);
-				if (card.AddressLine2.HasValue()) request.AddParameter("card[address_line2]", card.ExpYear);
-				if (card.AddressZip.HasValue()) request.AddParameter("card[address_zip]", card.ExpYear);
-				if (card.AddressState.HasValue()) request.AddParameter("card[address_state]", card.ExpYear);
-				if (card.AddressCountry.HasValue()) request.AddParameter("card[address_country]", card.ExpYear);
-			}
+			if (card != null) card.AddParametersToRequest(request);
 			if (coupon.HasValue()) request.AddParameter("coupon", coupon);
 			if (email.HasValue()) request.AddParameter("email", email);
 			if (description.HasValue()) request.AddParameter("description", description);

@@ -7,6 +7,6 @@ namespace Stripe.Tests
 {
 	static class Constants
 	{
-		public const string ApiKey = @"T9w8wTR4WFMmCwWLsJz7PwTMk93rlt4b";
+		public const string ApiKey = @"SUElo8BJwhNzEyJKOaphRBBn8S72MVgB";
 	}
 }

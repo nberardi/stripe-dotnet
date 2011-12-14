@@ -9,17 +9,12 @@ namespace Stripe
 {
 	public partial class StripeClient
 	{
-		public StripeSubscription UpdateCustomersSubscription(string customerId, string planId, string coupon = null, bool? prorate = null, DateTimeOffset? trialEnd = null, CreditCard card = null)
+		public StripeSubscription UpdateCustomersSubscription(string customerId, string planId, string coupon = null, bool? prorate = null, DateTimeOffset? trialEnd = null, ICreditCard card = null)
 		{
 			Require.Argument("customerId", customerId);
 			Require.Argument("planId", planId);
 
-			if (card != null)
-			{
-				Require.Argument("card[number]", card.Number);
-				Require.Argument("card[exp_month]", card.ExpMonth);
-				Require.Argument("card[exp_year]", card.ExpYear);
-			}
+			if (card != null) card.Validate();
 
 			var request = new RestRequest();
 			request.Method = Method.POST;
@@ -31,19 +26,7 @@ namespace Stripe
 			if (coupon.HasValue()) request.AddParameter("coupon", coupon);
 			if (prorate.HasValue) request.AddParameter("prorate", prorate.Value);
 			if (trialEnd.HasValue) request.AddParameter("trial_end", trialEnd.Value.ToUnixEpoch());
-			if (card != null)
-			{
-				request.AddParameter("card[number]", card.Number);
-				request.AddParameter("card[exp_month]", card.ExpMonth);
-				request.AddParameter("card[exp_year]", card.ExpYear);
-				if (card.Cvc.HasValue()) request.AddParameter("card[cvc]", card.ExpYear);
-				if (card.Name.HasValue()) request.AddParameter("card[name]", card.ExpYear);
-				if (card.AddressLine1.HasValue()) request.AddParameter("card[address_line1]", card.ExpYear);
-				if (card.AddressLine2.HasValue()) request.AddParameter("card[address_line2]", card.ExpYear);
-				if (card.AddressZip.HasValue()) request.AddParameter("card[address_zip]", card.ExpYear);
-				if (card.AddressState.HasValue()) request.AddParameter("card[address_state]", card.ExpYear);
-				if (card.AddressCountry.HasValue()) request.AddParameter("card[address_country]", card.ExpYear);
-			}
+			if (card != null) card.AddParametersToRequest(request);
 
 			return Execute<StripeSubscription>(request);
 		}

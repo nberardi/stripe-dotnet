@@ -6,7 +6,7 @@ namespace Stripe.Models
 {
 	public class StripeInvoice : StripeBase
 	{
-		public long? Created { get; set; }
+		public DateTimeOffset? Created { get; set; }
 		public int SubTotal { get; set; }
 		public int Total { get; set; }
 		public LinesWrapper Lines { get; set; }

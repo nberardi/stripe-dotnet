@@ -5,7 +5,7 @@ namespace Stripe.Models
 {
 	public class StripeInvoiceItem : StripeBase
 	{
-		public long Date { get; set; }
+		public DateTimeOffset Date { get; set; }
 		public string Description { get; set; }
 		public string Currency { get; set; }
 		public int Amount { get; set; }

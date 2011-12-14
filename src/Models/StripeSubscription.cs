@@ -5,15 +5,15 @@ namespace Stripe.Models
 {
 	public class StripeSubscription : StripeBase
 	{
-		public long CurrentPeriodEnd { get; set; }
+		public DateTimeOffset CurrentPeriodEnd { get; set; }
 		public string Status { get; set; }
 		public StripeSubscriptionPlan Plan { get; set; }
-		public long CurrentPeriodStart { get; set; }
-		public long Start { get; set; }
-		public long TrialStart { get; set; }
-		public long TrialEnd { get; set; }
-		public long? CanceledAt { get; set; }
-		public long? EndedAt { get; set; }
+		public DateTimeOffset CurrentPeriodStart { get; set; }
+		public DateTimeOffset Start { get; set; }
+		public DateTimeOffset TrialStart { get; set; }
+		public DateTimeOffset TrialEnd { get; set; }
+		public DateTimeOffset? CanceledAt { get; set; }
+		public DateTimeOffset? EndedAt { get; set; }
 		public string Customer { get; set; }
 	}
 }

@@ -8,7 +8,7 @@ namespace Stripe.Models
 		public int Amount { get; set; }
 		public int Fee { get; set; }
 		public string Currency { get; set; }
-		public long Created { get; set; }
+		public DateTimeOffset Created { get; set; }
 		public string Description { get; set; }
 		public string Id { get; set; }
 		public bool Attempted { get; set; }

@@ -29,6 +29,12 @@ namespace Stripe
 			_client.UserAgent = "strip-csharp/" + version;
 			_client.Authenticator = new StripeAuthenticator(apiKey);
 			_client.BaseUrl = String.Format("{0}{1}", ApiEndpoint, ApiVersion);
+
+			_client.AddHandler("application/json", new JsonDeserializer());
+			_client.AddHandler("text/json", new JsonDeserializer());
+			_client.AddHandler("text/x-json", new JsonDeserializer());
+			_client.AddHandler("text/javascript", new JsonDeserializer());
+			_client.AddHandler("*", new JsonDeserializer());
 		}
 
 		/// <summary>
@@ -49,6 +55,7 @@ namespace Stripe
 			};
 
 			var response = _client.Execute<T>(request);
+			
 			return response.Data;
 		}
 

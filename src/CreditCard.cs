@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Linq;
+using RestSharp;
+using RestSharp.Validation;
 
 namespace Stripe
 {
-	public class CreditCard
+	public class CreditCard : ICreditCard
 	{
 		/// <summary>
 		/// Cardholder's full name
@@ -47,6 +49,33 @@ namespace Stripe
 				ExpMonth = value.Month;
 				ExpYear = value.Year;
 			}
+		}
+
+		/// <summary>
+		/// Preforms basic validation to make sure required values are present.
+		/// </summary>
+		void ICreditCard.Validate()
+		{
+			Require.Argument("card[number]", Number);
+			Require.Argument("card[exp_month]", ExpMonth);
+			Require.Argument("card[exp_year]", ExpYear);
+
+			Validate.IsBetween(ExpMonth, 1, 12);
+			Validate.IsBetween(ExpYear, DateTime.Now.Year, 2050);
+		}
+
+		void ICreditCard.AddParametersToRequest(RestRequest request)
+		{
+			request.AddParameter("card[number]", Number);
+			request.AddParameter("card[exp_month]", ExpMonth);
+			request.AddParameter("card[exp_year]", ExpYear);
+			if (Cvc.HasValue()) request.AddParameter("card[cvc]", Cvc);
+			if (Name.HasValue()) request.AddParameter("card[name]", Name);
+			if (AddressLine1.HasValue()) request.AddParameter("card[address_line1]", AddressLine1);
+			if (AddressLine2.HasValue()) request.AddParameter("card[address_line2]", AddressLine2);
+			if (AddressZip.HasValue()) request.AddParameter("card[address_zip]", AddressZip);
+			if (AddressState.HasValue()) request.AddParameter("card[address_state]", AddressState);
+			if (AddressCountry.HasValue()) request.AddParameter("card[address_country]", AddressCountry);
 		}
 	}
 }

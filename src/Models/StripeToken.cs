@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace Stripe.Models
 {
-	public class TokenResponse : StripeBase
+	public class StripeToken : StripeBase
 	{
-		public long Created { get; set; }
+		public DateTimeOffset Created { get; set; }
 		public string Currency { get; set; }
 		public bool Used { get; set; }
 		public int Amount { get; set; }
