@@ -21,7 +21,7 @@ namespace Stripe
 			if (email.HasValue()) request.AddParameter("email", email);
 			if (description.HasValue()) request.AddParameter("description", description);
 			if (plan.HasValue()) request.AddParameter("plan", plan);
-			if (trialEnd.HasValue) request.AddParameter("trialEnd", trialEnd.Value.ToUnixEpoch());
+			if (trialEnd.HasValue) request.AddParameter("trial_end", trialEnd.Value.ToUnixEpoch());
 
 			return Execute<StripeCustomer>(request);
 		}
