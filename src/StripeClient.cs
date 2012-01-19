@@ -30,11 +30,11 @@ namespace Stripe
 			_client.Authenticator = new StripeAuthenticator(apiKey);
 			_client.BaseUrl = String.Format("{0}{1}", ApiEndpoint, ApiVersion);
 
-			_client.AddHandler("application/json", new JsonDeserializer());
-			_client.AddHandler("text/json", new JsonDeserializer());
-			_client.AddHandler("text/x-json", new JsonDeserializer());
-			_client.AddHandler("text/javascript", new JsonDeserializer());
-			_client.AddHandler("*", new JsonDeserializer());
+			//_client.AddHandler("application/json", new JsonDeserializer());
+			//_client.AddHandler("text/json", new JsonDeserializer());
+			//_client.AddHandler("text/x-json", new JsonDeserializer());
+			//_client.AddHandler("text/javascript", new JsonDeserializer());
+			//_client.AddHandler("*", new JsonDeserializer());
 		}
 
 		/// <summary>
