@@ -36,6 +36,20 @@ namespace Stripe.Tests
 		}
 
 		[Test]
+		public void CreateCustomer_WithPlan_Test()
+		{
+			var id = Guid.NewGuid().ToString();
+			_client.CreatePlan(id, 400M, "usd", PlanFrequency.Month, id);
+
+			var response = _client.CreateCustomer(_card, email: _email, plan: id);
+
+			Assert.IsNotNull(response);
+			Assert.IsFalse(response.IsError);
+			Assert.IsNotNull(response.Id);
+			Assert.IsNotNull(response.Subscription);
+		}
+
+		[Test]
 		public void RetrieveCustomer_Test()
 		{
 			var customer = _client.CreateCustomer(_card, email: _email);
