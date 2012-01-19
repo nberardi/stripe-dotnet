@@ -9,6 +9,7 @@ namespace Stripe.Models
 		public bool LiveMode { get; set; }
 		public DateTimeOffset Created { get; set; }
 		public StripeCard ActiveCard { get; set; }
+		public StripeSubscription Subscription { get; set; }
 		public string Id { get; set; }
 		public bool Deleted { get; set; }
 	}
