@@ -22,7 +22,7 @@ var card = new CreditCard {
 };
 
 var api = new StripeClient("Your API Key");
-var response = api.CreateCharge(
+dynamic response = api.CreateCharge(
     amount: 100.00, // $100
     currency: "usd",
     card: card);
