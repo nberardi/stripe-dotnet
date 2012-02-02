@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using NUnit.Framework;
-using Stripe.Models;
+
 
 namespace Stripe.Tests
 {
@@ -10,7 +10,7 @@ namespace Stripe.Tests
 	{
 		private StripeClient _client;
 
-		[SetUp]
+		[TestFixtureSetUp]
 		public void Setup()
 		{
 			_client = new StripeClient(Constants.ApiKey);
@@ -21,7 +21,7 @@ namespace Stripe.Tests
 		{
 			var id = Guid.NewGuid().ToString();
 
-			var response = _client.CreatePlan(id, 400M, "usd", PlanFrequency.Month, id);
+			dynamic response = _client.CreatePlan(id, 400M, "usd", PlanFrequency.Month, id);
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
@@ -33,8 +33,8 @@ namespace Stripe.Tests
 		{
 			var id = Guid.NewGuid().ToString();
 
-			var plan = _client.CreatePlan(id, 400M, "usd", PlanFrequency.Month, id);
-			var response = _client.RetreivePlan(plan.Id);
+			dynamic plan = _client.CreatePlan(id, 400M, "usd", PlanFrequency.Month, id);
+			dynamic response = _client.RetreivePlan(plan.Id);
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
@@ -46,8 +46,8 @@ namespace Stripe.Tests
 		{
 			var id = Guid.NewGuid().ToString();
 
-			var plan = _client.CreatePlan(id, 400M, "usd", PlanFrequency.Month, id);
-			var response = _client.DeletePlan(plan.Id);
+			dynamic plan = _client.CreatePlan(id, 400M, "usd", PlanFrequency.Month, id);
+			dynamic response = _client.DeletePlan(plan.Id);
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
@@ -58,12 +58,11 @@ namespace Stripe.Tests
 		[Test]
 		public void ListPlans_Test()
 		{
-			var response = _client.ListPlans();
+			dynamic response = _client.ListPlans();
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
-			Assert.IsNotNull(response.Data);
-			Assert.IsTrue(response.Data.Count > 0);
+			Assert.IsTrue(response.Count > 0);
 		}
 	}
 }

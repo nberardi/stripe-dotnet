@@ -3,13 +3,13 @@ using System.Linq;
 using RestSharp;
 using RestSharp.Extensions;
 using RestSharp.Validation;
-using Stripe.Models;
+
 
 namespace Stripe
 {
 	public partial class StripeClient
 	{
-		public StripeInvoiceItem CreateInvoiceItem(string customerId, decimal amount, string currency, string description = null)
+		public StripeObject CreateInvoiceItem(string customerId, decimal amount, string currency, string description = null)
 		{
 			Require.Argument("customerId", customerId);
 			Require.Argument("amount", amount);
@@ -24,10 +24,10 @@ namespace Stripe
 			request.AddParameter("currency", currency);
 			if (description.HasValue()) request.AddParameter("description", description);
 
-			return Execute<StripeInvoiceItem>(request);
+			return ExecuteObject(request);
 		}
 
-		public StripeInvoiceItem RetreiveInvoiceItem(string invoiceItemId)
+		public StripeObject RetreiveInvoiceItem(string invoiceItemId)
 		{
 			Require.Argument("invoiceItemId", invoiceItemId);
 
@@ -36,10 +36,10 @@ namespace Stripe
 
 			request.AddUrlSegment("invoiceItemId", invoiceItemId);
 
-			return Execute<StripeInvoiceItem>(request);
+			return ExecuteObject(request);
 		}
 
-		public StripeInvoiceItem UpdateInvoiceItem(string invoiceItemId, decimal amount, string currency, string description = null)
+		public StripeObject UpdateInvoiceItem(string invoiceItemId, decimal amount, string currency, string description = null)
 		{
 			Require.Argument("invoiceItemId", invoiceItemId);
 			Require.Argument("amount", amount);
@@ -55,10 +55,10 @@ namespace Stripe
 			request.AddParameter("currency", currency);
 			if (description.HasValue()) request.AddParameter("description", description);
 
-			return Execute<StripeInvoiceItem>(request);
+			return ExecuteObject(request);
 		}
 
-		public StripeInvoiceItem DeleteInvoiceItem(string invoiceItemId)
+		public StripeObject DeleteInvoiceItem(string invoiceItemId)
 		{
 			Require.Argument("invoiceItemId", invoiceItemId);
 
@@ -68,10 +68,10 @@ namespace Stripe
 
 			request.AddUrlSegment("invoiceItemId", invoiceItemId);
 
-			return Execute<StripeInvoiceItem>(request);
+			return ExecuteObject(request);
 		}
 
-		public StripeList<StripeCoupon> ListInvoiceItems(string customerId = null, int? count = null, int? offset = null)
+		public StripeArray ListInvoiceItems(string customerId = null, int? count = null, int? offset = null)
 		{
 			var request = new RestRequest();
 			request.Resource = "invoiceitems";
@@ -80,10 +80,10 @@ namespace Stripe
 			if (count.HasValue) request.AddParameter("count", count.Value);
 			if (offset.HasValue) request.AddParameter("offset", offset.Value);
 
-			return Execute<StripeList<StripeCoupon>>(request);
+			return ExecuteArray(request);
 		}
 
-		public StripeInvoice RetreiveInvoice(string invoiceId)
+		public StripeObject RetreiveInvoice(string invoiceId)
 		{
 			Require.Argument("invoiceId", invoiceId);
 
@@ -92,10 +92,10 @@ namespace Stripe
 
 			request.AddUrlSegment("invoiceId", invoiceId);
 
-			return Execute<StripeInvoice>(request);
+			return ExecuteObject(request);
 		}
 
-		public StripeInvoice RetreiveCustomersUpcomingInvoice(string customerId)
+		public StripeObject RetreiveCustomersUpcomingInvoice(string customerId)
 		{
 			Require.Argument("customerId", customerId);
 
@@ -104,10 +104,10 @@ namespace Stripe
 
 			request.AddParameter("customer", customerId);
 
-			return Execute<StripeInvoice>(request);
+			return ExecuteObject(request);
 		}
 
-		public StripeList<StripeInvoice> ListInvoices(string customerId = null, int? count = null, int? offset = null)
+		public StripeArray ListInvoices(string customerId = null, int? count = null, int? offset = null)
 		{
 			var request = new RestRequest();
 			request.Resource = "invoices";
@@ -116,7 +116,7 @@ namespace Stripe
 			if (count.HasValue) request.AddParameter("count", count.Value);
 			if (offset.HasValue) request.AddParameter("offset", offset.Value);
 
-			return Execute<StripeList<StripeInvoice>>(request);
+			return ExecuteArray(request);
 		}
 	}
 }

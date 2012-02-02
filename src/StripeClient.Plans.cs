@@ -2,13 +2,12 @@
 using System.Linq;
 using RestSharp;
 using RestSharp.Validation;
-using Stripe.Models;
 
 namespace Stripe
 {
 	public partial class StripeClient
 	{
-		public StripePlan CreatePlan(string planId, decimal amount, string currency, PlanFrequency interval, string name, int? trialPeriodDays = null)
+		public StripeObject CreatePlan(string planId, decimal amount, string currency, PlanFrequency interval, string name, int? trialPeriodDays = null)
 		{
 			Require.Argument("planId", planId);
 			Require.Argument("amount", amount);
@@ -32,10 +31,10 @@ namespace Stripe
 			request.AddParameter("name", name);
 			if (trialPeriodDays.HasValue) request.AddParameter("trial_period_days", trialPeriodDays);
 
-			return Execute<StripePlan>(request);
+			return ExecuteObject(request);
 		}
 
-		public StripePlan RetreivePlan(string planId)
+		public StripeObject RetreivePlan(string planId)
 		{
 			Require.Argument("planId", planId);
 
@@ -44,10 +43,10 @@ namespace Stripe
 
 			request.AddUrlSegment("planId", planId);
 
-			return Execute<StripePlan>(request);
+			return ExecuteObject(request);
 		}
 
-		public StripePlan DeletePlan(string planId)
+		public StripeObject DeletePlan(string planId)
 		{
 			Require.Argument("planId", planId);
 
@@ -57,10 +56,10 @@ namespace Stripe
 
 			request.AddUrlSegment("planId", planId);
 
-			return Execute<StripePlan>(request);
+			return ExecuteObject(request);
 		}
 
-		public StripeList<StripePlan> ListPlans(int? count = null, int? offset = null)
+		public StripeArray ListPlans(int? count = null, int? offset = null)
 		{
 			var request = new RestRequest();
 			request.Resource = "plans";
@@ -68,7 +67,7 @@ namespace Stripe
 			if (count.HasValue) request.AddParameter("count", count.Value);
 			if (offset.HasValue) request.AddParameter("offset", offset.Value);
 
-			return Execute<StripeList<StripePlan>>(request);
+			return ExecuteArray(request);
 		}
 	}
 }

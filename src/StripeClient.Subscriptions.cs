@@ -3,13 +3,13 @@ using System.Linq;
 using RestSharp;
 using RestSharp.Extensions;
 using RestSharp.Validation;
-using Stripe.Models;
+
 
 namespace Stripe
 {
 	public partial class StripeClient
 	{
-		public StripeSubscription UpdateCustomersSubscription(string customerId, string planId, string coupon = null, bool? prorate = null, DateTimeOffset? trialEnd = null, ICreditCard card = null)
+		public StripeObject UpdateCustomersSubscription(string customerId, string planId, string coupon = null, bool? prorate = null, DateTimeOffset? trialEnd = null, ICreditCard card = null)
 		{
 			Require.Argument("customerId", customerId);
 			Require.Argument("planId", planId);
@@ -28,10 +28,10 @@ namespace Stripe
 			if (trialEnd.HasValue) request.AddParameter("trial_end", trialEnd.Value.ToUnixEpoch());
 			if (card != null) card.AddParametersToRequest(request);
 
-			return Execute<StripeSubscription>(request);
+			return ExecuteObject(request);
 		}
 
-		public StripeSubscription CancelCustomersSubscription(string customerId, bool? atPeriodEnd = null)
+		public StripeObject CancelCustomersSubscription(string customerId, bool? atPeriodEnd = null)
 		{
 			Require.Argument("customerId", customerId);
 
@@ -43,7 +43,7 @@ namespace Stripe
 
 			if (atPeriodEnd.HasValue) request.AddParameter("at_period_end", atPeriodEnd.Value);
 
-			return Execute<StripeSubscription>(request);
+			return ExecuteObject(request);
 		}
 	}
 }

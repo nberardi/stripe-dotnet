@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using NUnit.Framework;
-using Stripe.Models;
+
 
 namespace Stripe.Tests
 {
@@ -10,10 +10,10 @@ namespace Stripe.Tests
 	{
 		private StripeClient _client;
 
-		private StripeCustomer _customer;
+		private dynamic _customer;
 		private CreditCard _card;
 
-		[SetUp]
+		[TestFixtureSetUp]
 		public void Setup()
 		{
 			_card = new CreditCard {
@@ -29,7 +29,7 @@ namespace Stripe.Tests
 		[Test]
 		public void CreateCharge_Card_Test()
 		{
-			var response = _client.CreateCharge(100M, "usd", _card);
+			dynamic response = _client.CreateCharge(100M, "usd", _card);
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
@@ -39,7 +39,7 @@ namespace Stripe.Tests
 		[Test]
 		public void CreateCharge_Customer_Test()
 		{
-			var response = _client.CreateCharge(100M, "usd", _customer.Id);
+			dynamic response = _client.CreateCharge(100M, "usd", _customer.Id);
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
@@ -49,8 +49,8 @@ namespace Stripe.Tests
 		[Test]
 		public void RetrieveCharge_Test()
 		{
-			var charge = _client.CreateCharge(100M, "usd", _customer.Id);
-			var response = _client.RetrieveCharge(charge.Id);
+			dynamic charge = _client.CreateCharge(100M, "usd", _customer.Id);
+			dynamic response = _client.RetrieveCharge(charge.Id);
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
@@ -60,8 +60,8 @@ namespace Stripe.Tests
 		[Test]
 		public void RefundCharge_Test()
 		{
-			var charge = _client.CreateCharge(100M, "usd", _customer.Id);
-			var response = _client.RefundCharge(charge.Id);
+			dynamic charge = _client.CreateCharge(100M, "usd", _customer.Id);
+			dynamic response = _client.RefundCharge(charge.Id);
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
@@ -72,12 +72,11 @@ namespace Stripe.Tests
 		[Test]
 		public void ListCharges_Test()
 		{
-			var response = _client.ListCharges();
+			dynamic response = _client.ListCharges();
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
-			Assert.IsNotNull(response.Data);
-			Assert.IsTrue(response.Data.Count > 0);
+			Assert.IsTrue(response.Count > 0);
 		}
 	}
 }

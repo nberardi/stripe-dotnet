@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Stripe.Models
+namespace Stripe
 {
 	public enum PlanFrequency
 	{

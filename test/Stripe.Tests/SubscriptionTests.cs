@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Linq;
 using NUnit.Framework;
-using Stripe.Models;
+
 
 namespace Stripe.Tests
 {
 	[TestFixture]
 	public class SubscriptionTests
 	{
-		private StripePlan _plan;
-		private StripeCustomer _customer;
+		private dynamic _plan;
+		private dynamic _customer;
 
 		private StripeClient _client;
 
-		[SetUp]
+		[TestFixtureSetUp]
 		public void Setup()
 		{
 			_client = new StripeClient(Constants.ApiKey);
@@ -32,7 +32,7 @@ namespace Stripe.Tests
 		[Test]
 		public void UpdateCustomersSubscription_Test()
 		{
-			var response = _client.UpdateCustomersSubscription(_customer.Id, _plan.Id);
+			dynamic response = _client.UpdateCustomersSubscription(_customer.Id, _plan.Id);
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
@@ -42,7 +42,7 @@ namespace Stripe.Tests
 		public void CancelCustomersSubscription_Test()
 		{
 			_client.UpdateCustomersSubscription(_customer.Id, _plan.Id);
-			var response = _client.CancelCustomersSubscription(_customer.Id);
+			dynamic response = _client.CancelCustomersSubscription(_customer.Id);
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);

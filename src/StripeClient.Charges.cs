@@ -2,13 +2,13 @@
 using RestSharp;
 using RestSharp.Extensions;
 using RestSharp.Validation;
-using Stripe.Models;
+
 
 namespace Stripe
 {
 	public partial class StripeClient
 	{
-		public StripeCharge CreateCharge(decimal amount, string currency, string customerId, string description = null)
+		public StripeObject CreateCharge(decimal amount, string currency, string customerId, string description = null)
 		{
 			Require.Argument("amount", amount);
 			Require.Argument("currency", currency);
@@ -26,10 +26,10 @@ namespace Stripe
 			request.AddParameter("customer", customerId);
 			if (description.HasValue()) request.AddParameter("description", description);
 
-			return Execute<StripeCharge>(request);
+			return ExecuteObject(request);
 		}
 
-		public StripeCharge CreateCharge(decimal amount, string currency, ICreditCard card, string description = null)
+		public StripeObject CreateCharge(decimal amount, string currency, ICreditCard card, string description = null)
 		{
 			Require.Argument("amount", amount);
 			Require.Argument("currency", currency);
@@ -48,10 +48,10 @@ namespace Stripe
 			card.AddParametersToRequest(request);
 			if (description.HasValue()) request.AddParameter("description", description);
 
-			return Execute<StripeCharge>(request);
+			return ExecuteObject(request);
 		}
 
-		public StripeCharge RetrieveCharge(string chargeId)
+		public StripeObject RetrieveCharge(string chargeId)
 		{
 			Require.Argument("chargeId", chargeId);
 
@@ -60,10 +60,10 @@ namespace Stripe
 
 			request.AddUrlSegment("chargeId", chargeId);
 
-			return Execute<StripeCharge>(request);
+			return ExecuteObject(request);
 		}
 
-		public StripeCharge RefundCharge(string chargeId, decimal? amount = null)
+		public StripeObject RefundCharge(string chargeId, decimal? amount = null)
 		{
 			Require.Argument("chargeId", chargeId);
 
@@ -80,10 +80,10 @@ namespace Stripe
 				request.AddParameter("amount", Convert.ToInt32(amount * 100M));
 			}
 
-			return Execute<StripeCharge>(request);
+			return ExecuteObject(request);
 		}
 
-		public StripeList<StripeCharge> ListCharges(string customerId = null, int? count = null, int? offset = null)
+		public StripeArray ListCharges(string customerId = null, int? count = null, int? offset = null)
 		{
 			var request = new RestRequest();
 			request.Resource = "charges";
@@ -92,7 +92,7 @@ namespace Stripe
 			if (offset.HasValue) request.AddParameter("offset", offset.Value);
 			if (customerId.HasValue()) request.AddParameter("customer", customerId);
 
-			return Execute<StripeList<StripeCharge>>(request);
+			return ExecuteArray(request);
 		}
 	}
 }

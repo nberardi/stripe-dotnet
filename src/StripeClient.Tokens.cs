@@ -2,13 +2,13 @@
 using System.Linq;
 using RestSharp;
 using RestSharp.Validation;
-using Stripe.Models;
+
 
 namespace Stripe
 {
 	public partial class StripeClient
 	{
-		public StripeToken CreateCardToken(CreditCard card, decimal? amount = null, string currency = null)
+		public StripeObject CreateCardToken(CreditCard card, decimal? amount = null, string currency = null)
 		{
 			Require.Argument("card", card);
 			((ICreditCard)card).Validate();
@@ -30,10 +30,10 @@ namespace Stripe
 			if (currency.HasValue()) request.AddParameter("currency", currency);
 			((ICreditCard)card).AddParametersToRequest(request);
 
-			return Execute<StripeToken>(request);
+			return ExecuteObject(request);
 		}
 
-		public StripeToken RetrieveCardToken(string tokenId)
+		public StripeObject RetrieveCardToken(string tokenId)
 		{
 			Require.Argument("tokenId", tokenId);
 
@@ -42,7 +42,7 @@ namespace Stripe
 
 			request.AddUrlSegment("tokenId", tokenId);
 
-			return Execute<StripeToken>(request);
+			return ExecuteObject(request);
 		}
 	}
 }

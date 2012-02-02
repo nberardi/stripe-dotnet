@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using NUnit.Framework;
-using Stripe.Models;
+
 
 namespace Stripe.Tests
 {
@@ -13,7 +13,7 @@ namespace Stripe.Tests
 		private CreditCard _card;
 		private string _email = "test@hoppio.com";
 
-		[SetUp]
+		[TestFixtureSetUp]
 		public void Setup()
 		{
 			_card = new CreditCard {
@@ -28,7 +28,7 @@ namespace Stripe.Tests
 		[Test]
 		public void CreateCustomer_Test()
 		{
-			var response = _client.CreateCustomer(_card, email: _email);
+			dynamic response = _client.CreateCustomer(_card, email: _email);
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
@@ -41,7 +41,7 @@ namespace Stripe.Tests
 			var id = Guid.NewGuid().ToString();
 			_client.CreatePlan(id, 400M, "usd", PlanFrequency.Month, id);
 
-			var response = _client.CreateCustomer(_card, email: _email, plan: id);
+			dynamic response = _client.CreateCustomer(_card, email: _email, plan: id);
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
@@ -52,8 +52,8 @@ namespace Stripe.Tests
 		[Test]
 		public void RetrieveCustomer_Test()
 		{
-			var customer = _client.CreateCustomer(_card, email: _email);
-			var response = _client.RetrieveCustomer(customer.Id);
+			dynamic customer = _client.CreateCustomer(_card, email: _email);
+			dynamic response = _client.RetrieveCustomer(customer.Id);
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
@@ -69,8 +69,8 @@ namespace Stripe.Tests
 				ExpYear = 2016
 			};
 
-			var customer = _client.CreateCustomer(_card, email: _email);
-			var response = _client.UpdateCustomer(customer.Id, newCard);
+			dynamic customer = _client.CreateCustomer(_card, email: _email);
+			dynamic response = _client.UpdateCustomer(customer.Id, newCard);
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
@@ -81,8 +81,8 @@ namespace Stripe.Tests
 		[Test]
 		public void DeleteCustomer_Test()
 		{
-			var customer = _client.CreateCustomer(_card, email: _email);
-			var response = _client.DeleteCustomer(customer.Id);
+			dynamic customer = _client.CreateCustomer(_card, email: _email);
+			dynamic response = _client.DeleteCustomer(customer.Id);
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
@@ -93,12 +93,11 @@ namespace Stripe.Tests
 		[Test]
 		public void ListCharges_Test()
 		{
-			var response = _client.ListCustomers();
+			dynamic response = _client.ListCustomers();
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
-			Assert.IsNotNull(response.Data);
-			Assert.IsTrue(response.Data.Count > 0);
+			Assert.IsTrue(response.Count > 0);
 		}
 	}
 }

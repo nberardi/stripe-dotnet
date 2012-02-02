@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Linq;
 using RestSharp;
-using RestSharp.Extensions;
 using RestSharp.Validation;
-using Stripe.Models;
+
 
 namespace Stripe
 {
 	public partial class StripeClient
 	{
-		public StripeCoupon CreateCoupon(int percentOff, CouponDuration duration, string couponId = null, int? durationInMonths = null, int? maxRedemptions = null, DateTimeOffset? redeemBy = null)
+		public StripeObject CreateCoupon(int percentOff, CouponDuration duration, string couponId = null, int? durationInMonths = null, int? maxRedemptions = null, DateTimeOffset? redeemBy = null)
 		{
 			Require.Argument("percentOff", percentOff);
 			Require.Argument("duration", duration);
@@ -37,10 +36,10 @@ namespace Stripe
 			if (maxRedemptions.HasValue) request.AddParameter("max_redemptions", maxRedemptions.Value);
 			if (redeemBy.HasValue) request.AddParameter("redeem_by", redeemBy.Value.ToUnixEpoch());
 
-			return Execute<StripeCoupon>(request);
+			return ExecuteObject(request);
 		}
 
-		public StripeCoupon RetreiveCoupon(string couponId)
+		public StripeObject RetreiveCoupon(string couponId)
 		{
 			Require.Argument("couponId", couponId);
 
@@ -49,10 +48,10 @@ namespace Stripe
 
 			request.AddUrlSegment("couponId", couponId);
 
-			return Execute<StripeCoupon>(request);
+			return ExecuteObject(request);
 		}
 
-		public StripeCoupon DeleteCoupon(string couponId)
+		public StripeObject DeleteCoupon(string couponId)
 		{
 			Require.Argument("couponId", couponId);
 
@@ -62,10 +61,10 @@ namespace Stripe
 
 			request.AddUrlSegment("couponId", couponId);
 
-			return Execute<StripeCoupon>(request);
+			return ExecuteObject(request);
 		}
 
-		public StripeList<StripeCoupon> ListCoupons(int? count = null, int? offset = null)
+		public StripeArray ListCoupons(int? count = null, int? offset = null)
 		{
 			var request = new RestRequest();
 			request.Resource = "coupons";
@@ -73,7 +72,7 @@ namespace Stripe
 			if (count.HasValue) request.AddParameter("count", count.Value);
 			if (offset.HasValue) request.AddParameter("offset", offset.Value);
 
-			return Execute<StripeList<StripeCoupon>>(request);
+			return ExecuteArray(request);
 		}
 	}
 }

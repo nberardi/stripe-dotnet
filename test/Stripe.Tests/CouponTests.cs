@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using NUnit.Framework;
-using Stripe.Models;
 
 namespace Stripe.Tests
 {
@@ -10,7 +9,7 @@ namespace Stripe.Tests
 	{
 		private StripeClient _client;
 
-		[SetUp]
+		[TestFixtureSetUp]
 		public void Setup()
 		{
 			_client = new StripeClient(Constants.ApiKey);
@@ -19,7 +18,7 @@ namespace Stripe.Tests
 		[Test]
 		public void CreateCoupon_Test()
 		{
-			var response = _client.CreateCoupon(75, CouponDuration.Once);
+			dynamic response = _client.CreateCoupon(75, CouponDuration.Once);
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
@@ -29,8 +28,8 @@ namespace Stripe.Tests
 		[Test]
 		public void RetrieveCoupon_Test()
 		{
-			var coupon = _client.CreateCoupon(75, CouponDuration.Once);
-			var response = _client.RetreiveCoupon(coupon.Id);
+			dynamic coupon = _client.CreateCoupon(75, CouponDuration.Once);
+			dynamic response = _client.RetreiveCoupon(coupon.Id);
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
@@ -40,8 +39,8 @@ namespace Stripe.Tests
 		[Test]
 		public void DeleteCustomer_Test()
 		{
-			var coupon = _client.CreateCoupon(75, CouponDuration.Once);
-			var response = _client.DeleteCoupon(coupon.Id);
+			dynamic coupon = _client.CreateCoupon(75, CouponDuration.Once);
+			dynamic response = _client.DeleteCoupon(coupon.Id);
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
@@ -52,12 +51,11 @@ namespace Stripe.Tests
 		[Test]
 		public void ListCoupons_Test()
 		{
-			var response = _client.ListCoupons();
+			dynamic response = _client.ListCoupons();
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
-			Assert.IsNotNull(response.Data);
-			Assert.IsTrue(response.Data.Count > 0);
+			Assert.IsTrue(response.Count > 0);
 		}
 	}
 }

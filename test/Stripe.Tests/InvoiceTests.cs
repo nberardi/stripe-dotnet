@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using NUnit.Framework;
-using Stripe.Models;
+
 
 namespace Stripe.Tests
 {
@@ -10,10 +10,10 @@ namespace Stripe.Tests
 	{
 		private StripeClient _client;
 
-		private StripeCustomer _customer;
+		private dynamic _customer;
 		private CreditCard _card;
 
-		[SetUp]
+		[TestFixtureSetUp]
 		public void Setup()
 		{
 			_card = new CreditCard {
@@ -29,7 +29,7 @@ namespace Stripe.Tests
 		[Test]
 		public void CreateInvoiceItem_Test()
 		{
-			var response = _client.CreateInvoiceItem(_customer.Id, 100M, "usd");
+			dynamic response = _client.CreateInvoiceItem(_customer.Id, 100M, "usd");
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
@@ -39,8 +39,8 @@ namespace Stripe.Tests
 		[Test]
 		public void RetrieveInvoiceItem_Test()
 		{
-			var invoiceItem = _client.CreateInvoiceItem(_customer.Id, 100M, "usd");
-			var response = _client.RetreiveInvoiceItem(invoiceItem.Id);
+			dynamic invoiceItem = _client.CreateInvoiceItem(_customer.Id, 100M, "usd");
+			dynamic response = _client.RetreiveInvoiceItem(invoiceItem.Id);
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
@@ -50,8 +50,8 @@ namespace Stripe.Tests
 		[Test]
 		public void UpdateInvoiceItem_Test()
 		{
-			var invoiceItem = _client.CreateInvoiceItem(_customer.Id, 100M, "usd");
-			var response = _client.UpdateInvoiceItem(invoiceItem.Id, 200M, "usd");
+			dynamic invoiceItem = _client.CreateInvoiceItem(_customer.Id, 100M, "usd");
+			dynamic response = _client.UpdateInvoiceItem(invoiceItem.Id, 200M, "usd");
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
@@ -62,8 +62,8 @@ namespace Stripe.Tests
 		[Test]
 		public void DeleteInvoiceItem_Test()
 		{
-			var invoiceItem = _client.CreateInvoiceItem(_customer.Id, 100M, "usd");
-			var response = _client.DeleteInvoiceItem(invoiceItem.Id);
+			dynamic invoiceItem = _client.CreateInvoiceItem(_customer.Id, 100M, "usd");
+			dynamic response = _client.DeleteInvoiceItem(invoiceItem.Id);
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
@@ -74,19 +74,18 @@ namespace Stripe.Tests
 		[Test]
 		public void ListInvoiceItems_Test()
 		{
-			var response = _client.ListInvoiceItems();
+			dynamic response = _client.ListInvoiceItems();
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
-			Assert.IsNotNull(response.Data);
-			Assert.IsTrue(response.Data.Count > 0);
+			Assert.IsTrue(response.Count > 0);
 		}
 
 		[Test, Ignore]
 		public void RetrieveInvoice_Test()
 		{
-			var invoiceItem = _client.CreateInvoiceItem(_customer.Id, 100M, "usd");
-			var response = _client.RetreiveInvoice(invoiceItem.Id);
+			dynamic invoiceItem = _client.CreateInvoiceItem(_customer.Id, 100M, "usd");
+			dynamic response = _client.RetreiveInvoice(invoiceItem.Id);
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
@@ -96,18 +95,17 @@ namespace Stripe.Tests
 		[Test]
 		public void RetrieveCustomersUpcomingInvoice_Test()
 		{
-			var invoiceItem = _client.CreateInvoiceItem(_customer.Id, 100M, "usd");
+			dynamic invoiceItem = _client.CreateInvoiceItem(_customer.Id, 100M, "usd");
 			var response = _client.RetreiveCustomersUpcomingInvoice(_customer.Id);
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
-			Assert.IsTrue(response.Lines.Any(x => x.Id == invoiceItem.Id));
 		}
 
 		[Test, Ignore]
 		public void ListInvoices_Test()
 		{
-			var response = _client.ListInvoices();
+			dynamic response = _client.ListInvoices();
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);

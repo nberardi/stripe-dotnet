@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using RestSharp;
+using System.Web.Script.Serialization;
+
 
 namespace Stripe
 {
@@ -26,7 +29,7 @@ namespace Stripe
 			var version = assemblyName.Version;
 
 			_client = new RestClient();
-			_client.UserAgent = "strip-csharp/" + version;
+			_client.UserAgent = "stripe-dotnet/" + version;
 			_client.Authenticator = new StripeAuthenticator(apiKey);
 			_client.BaseUrl = String.Format("{0}{1}", ApiEndpoint, ApiVersion);
 
@@ -42,10 +45,9 @@ namespace Stripe
 		/// </summary>
 		/// <typeparam name="T">The type of object to create and populate with the returned data.</typeparam>
 		/// <param name="request">The RestRequest to execute (will use client credentials)</param>
-		public T Execute<T>(RestRequest request) where T : new()
+		public StripeObject ExecuteObject(RestRequest request)
 		{
-			request.OnBeforeDeserialization = (resp) =>
-			{
+			request.OnBeforeDeserialization = (resp) => {
 				// for individual resources when there's an error to make
 				// sure that RestException props are populated
 				if (((int)resp.StatusCode) >= 400)
@@ -54,9 +56,45 @@ namespace Stripe
 				}
 			};
 
-			var response = _client.Execute<T>(request);
-			
-			return response.Data;
+			var response = _client.Execute(request);
+			var json = Deserialize(response.Content);
+			var obj = new StripeObject();
+			obj.SetModel(json);
+
+			return obj;
+		}
+
+		/// <summary>
+		/// Execute a manual REST request
+		/// </summary>
+		/// <typeparam name="T">The type of object to create and populate with the returned data.</typeparam>
+		/// <param name="request">The RestRequest to execute (will use client credentials)</param>
+		public StripeArray ExecuteArray(RestRequest request)
+		{
+			request.OnBeforeDeserialization = (resp) => {
+				// for individual resources when there's an error to make
+				// sure that RestException props are populated
+				if (((int)resp.StatusCode) >= 400)
+				{
+					request.RootElement = "";
+				}
+			};
+
+			var response = _client.Execute(request);
+			var json = Deserialize(response.Content);
+			var obj = new StripeArray();
+			obj.SetModel(json);
+
+			return obj;
+		}
+
+		private IDictionary<string, object> Deserialize(string input)
+		{
+			if (String.IsNullOrEmpty(input))
+				return null;
+
+			var serializer = new JavaScriptSerializer();
+			return serializer.Deserialize<IDictionary<string, object>>(input);
 		}
 
 		/// <summary>

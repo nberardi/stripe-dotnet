@@ -11,7 +11,7 @@ namespace Stripe.Tests
 
 		private CreditCard _card;
 
-		[SetUp]
+		[TestFixtureSetUp]
 		public void Setup()
 		{
 			_card = new CreditCard {
@@ -26,7 +26,7 @@ namespace Stripe.Tests
 		[Test]
 		public void CreateCardToken_Test()
 		{
-			var response = _client.CreateCardToken(_card);
+			dynamic response = _client.CreateCardToken(_card);
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
@@ -35,8 +35,8 @@ namespace Stripe.Tests
 		[Test]
 		public void RetrieveCardToken_Test()
 		{
-			var token = _client.CreateCardToken(_card);
-			var response = _client.RetrieveCardToken(token.Id);
+			dynamic token = _client.CreateCardToken(_card);
+			dynamic response = _client.RetrieveCardToken(token.Id);
 
 			Assert.IsNotNull(response);
 			Assert.IsFalse(response.IsError);
