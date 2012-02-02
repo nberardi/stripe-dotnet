@@ -47,6 +47,7 @@
     <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="StripeClient.Events.cs" />
     <Compile Include="CreditCardToken.cs" />
     <Compile Include="ICreditCard.cs" />
     <Compile Include="JsonDeserializer.cs" />

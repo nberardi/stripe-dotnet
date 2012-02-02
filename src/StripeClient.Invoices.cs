@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Linq;
 using RestSharp;
-using RestSharp.Extensions;
 using RestSharp.Validation;
-
 
 namespace Stripe
 {
