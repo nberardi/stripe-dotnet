@@ -15,25 +15,26 @@ PM> Install-Package Stripe
 # How can I start using this library?
 
 ```csharp
+var apiKey = "Your API Key";
+var api = new StripeClient(apiKey);
+
 var card = new CreditCard {
-    Number = "4111111111111111",
-    ExpMonth = 3,
-    ExpYear = 2015
+	Number = "4111111111111111",
+	ExpMonth = 3,
+	ExpYear = 2015
 };
 
-var api = new StripeClient("Your API Key");
 dynamic response = api.CreateCharge(
-    amount: 100.00, // $100
-    currency: "usd",
-    card: card);
-    
-if (response.Paid) {
-    Console.WriteLine("Whoo Hoo...  We made our first sale!");
-}
+	amount: 10000, // $100
+	currency: "usd",
+	card: card);
+
+if (response.Paid)
+	Console.WriteLine("Whoo Hoo...  We made our first sale!");
 ```
 
 # Authors
 
 *	Nick Berardi (https://github.com/nberardi)
 
-Copyright 2011 Stripe, Inc.
+Copyright 2012 Stripe, Inc.

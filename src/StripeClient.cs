@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using RestSharp;
 using System.Web.Script.Serialization;
-
+using RestSharp;
 
 namespace Stripe
 {

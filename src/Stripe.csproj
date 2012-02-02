@@ -14,7 +14,8 @@
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\stripe-dotnet\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <TargetFrameworkProfile />
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -64,6 +65,7 @@
     <Compile Include="StripeClient.Customers.cs" />
     <Compile Include="CreditCard.cs" />
     <Compile Include="DateTimeExtensions.cs" />
+    <None Include="StripeExample.cs.pp" />
     <Compile Include="StripeObject.cs" />
     <Compile Include="StripeClient.Plans.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -17,5 +17,13 @@
 		<dependencies>
 			<dependency id="RestSharp" />
 		</dependencies>
+		<frameworkAssemblies>
+			<frameworkAssembly assemblyName="System.Core" targetFramework="net40" />
+			<frameworkAssembly assemblyName="Microsoft.CSharp" targetFramework="net40" />
+			<frameworkAssembly assemblyName="System.Web.Extensions" targetFramework="net40" />
+		</frameworkAssemblies>
 	</metadata>
+	<files>
+		<file src="StripeExample.cs.pp" target="Content" />
+	</files>
 </package>
