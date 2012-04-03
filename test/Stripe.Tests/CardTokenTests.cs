@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Linq;
-using NUnit.Framework;
+using Xunit;
 
 namespace Stripe.Tests
 {
-	[TestFixture]
 	public class CardTokenTests
 	{
 		private StripeClient _client;
 
 		private CreditCard _card;
 
-		[TestFixtureSetUp]
-		public void Setup()
+		public CardTokenTests()
 		{
 			_card = new CreditCard {
 				Number = "4111111111111111",
@@ -23,24 +21,24 @@ namespace Stripe.Tests
 			_client = new StripeClient(Constants.ApiKey);
 		}
 
-		[Test]
+		[Fact]
 		public void CreateCardToken_Test()
 		{
 			dynamic response = _client.CreateCardToken(_card);
 
-			Assert.IsNotNull(response);
-			Assert.IsFalse(response.IsError);
+			Assert.NotNull(response);
+			Assert.False(response.IsError);
 		}
 
-		[Test]
+		[Fact]
 		public void RetrieveCardToken_Test()
 		{
 			dynamic token = _client.CreateCardToken(_card);
 			dynamic response = _client.RetrieveCardToken(token.Id);
 
-			Assert.IsNotNull(response);
-			Assert.IsFalse(response.IsError);
-			Assert.AreEqual(token.Id, response.Id);
+			Assert.NotNull(response);
+			Assert.False(response.IsError);
+			Assert.Equal(token.Id, response.Id);
 		}
 	}
 }

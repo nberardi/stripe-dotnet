@@ -143,22 +143,6 @@ namespace Stripe
 			return true;
 		}
 
-		//public override bool TrySetIndex(SetIndexBinder binder, object[] indexes, object value)
-		//{
-		//    var key = GetSingleIndexOrNull(indexes);
-
-		//        if (!String.IsNullOrEmpty(key))
-		//        _model[key] = WrapObjectIfNessisary(value);
-
-		//    return true;
-		//}
-
-		//public override bool TrySetMember(SetMemberBinder binder, object value)
-		//{
-		//    _model[binder.Name] = WrapObjectIfNessisary(value);
-		//    return true;
-		//}
-
 		public override string ToString()
 		{
 			var serializer = new JavaScriptSerializer();

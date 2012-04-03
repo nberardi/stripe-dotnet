@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Linq;
-using NUnit.Framework;
-
+using Xunit;
 
 namespace Stripe.Tests
 {
-	[TestFixture]
 	public class CustomerTests
 	{
 		private StripeClient _client;
@@ -13,8 +11,7 @@ namespace Stripe.Tests
 		private CreditCard _card;
 		private string _email = "test@hoppio.com";
 
-		[TestFixtureSetUp]
-		public void Setup()
+		public CustomerTests()
 		{
 			_card = new CreditCard {
 				Number = "4111111111111111",
@@ -25,17 +22,17 @@ namespace Stripe.Tests
 			_client = new StripeClient(Constants.ApiKey);
 		}
 
-		[Test]
+		[Fact]
 		public void CreateCustomer_Test()
 		{
 			dynamic response = _client.CreateCustomer(_card, email: _email);
 
-			Assert.IsNotNull(response);
-			Assert.IsFalse(response.IsError);
-			Assert.IsNotNull(response.Id);
+			Assert.NotNull(response);
+			Assert.False(response.IsError);
+			Assert.NotNull(response.Id);
 		}
 
-		[Test]
+		[Fact]
 		public void CreateCustomer_WithPlan_Test()
 		{
 			var id = Guid.NewGuid().ToString();
@@ -43,24 +40,24 @@ namespace Stripe.Tests
 
 			dynamic response = _client.CreateCustomer(_card, email: _email, plan: id);
 
-			Assert.IsNotNull(response);
-			Assert.IsFalse(response.IsError);
-			Assert.IsNotNull(response.Id);
-			Assert.IsNotNull(response.Subscription);
+			Assert.NotNull(response);
+			Assert.False(response.IsError);
+			Assert.NotNull(response.Id);
+			Assert.NotNull(response.Subscription);
 		}
 
-		[Test]
+		[Fact]
 		public void RetrieveCustomer_Test()
 		{
 			dynamic customer = _client.CreateCustomer(_card, email: _email);
 			dynamic response = _client.RetrieveCustomer(customer.Id);
 
-			Assert.IsNotNull(response);
-			Assert.IsFalse(response.IsError);
-			Assert.AreEqual(customer.Id, response.Id);
+			Assert.NotNull(response);
+			Assert.False(response.IsError);
+			Assert.Equal(customer.Id, response.Id);
 		}
 
-		[Test]
+		[Fact]
 		public void UpdateCustomer_Test()
 		{
 			var newCard = new CreditCard {
@@ -72,32 +69,32 @@ namespace Stripe.Tests
 			dynamic customer = _client.CreateCustomer(_card, email: _email);
 			dynamic response = _client.UpdateCustomer(customer.Id, newCard);
 
-			Assert.IsNotNull(response);
-			Assert.IsFalse(response.IsError);
-			Assert.AreEqual(customer.Id, response.Id);
-			Assert.AreNotEqual(customer.ActiveCard.Last4, response.ActiveCard.Last4);
+			Assert.NotNull(response);
+			Assert.False(response.IsError);
+			Assert.Equal(customer.Id, response.Id);
+			Assert.NotEqual(customer.ActiveCard.Last4, response.ActiveCard.Last4);
 		}
 
-		[Test]
+		[Fact]
 		public void DeleteCustomer_Test()
 		{
 			dynamic customer = _client.CreateCustomer(_card, email: _email);
 			dynamic response = _client.DeleteCustomer(customer.Id);
 
-			Assert.IsNotNull(response);
-			Assert.IsFalse(response.IsError);
-			Assert.IsTrue(response.Deleted);
-			Assert.AreEqual(customer.Id, response.Id);
+			Assert.NotNull(response);
+			Assert.False(response.IsError);
+			Assert.True(response.Deleted);
+			Assert.Equal(customer.Id, response.Id);
 		}
 
-		[Test]
+		[Fact]
 		public void ListCharges_Test()
 		{
 			dynamic response = _client.ListCustomers();
 
-			Assert.IsNotNull(response);
-			Assert.IsFalse(response.IsError);
-			Assert.IsTrue(response.Count > 0);
+			Assert.NotNull(response);
+			Assert.False(response.IsError);
+			Assert.True(response.Count > 0);
 		}
 	}
 }

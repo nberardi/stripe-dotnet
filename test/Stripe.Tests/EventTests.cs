@@ -1,29 +1,26 @@
 ﻿using System;
 using System.Linq;
-using NUnit.Framework;
-
+using Xunit;
 
 namespace Stripe.Tests
 {
-	[TestFixture]
 	public class EventTest
 	{
 		private StripeClient _client;
 
-		[TestFixtureSetUp]
-		public void Setup()
+		public EventTest()
 		{
 			_client = new StripeClient(Constants.ApiKey);
 		}
 
-		[Test]
+		[Fact]
 		public void ListEvents_Test()
 		{
 			dynamic response = _client.ListEvents();
 
-			Assert.IsNotNull(response);
-			Assert.IsFalse(response.IsError);
-			Assert.IsTrue(response.Count > 0);
+			Assert.NotNull(response);
+			Assert.False(response.IsError);
+			Assert.True(response.Count > 0);
 		}
 	}
 }

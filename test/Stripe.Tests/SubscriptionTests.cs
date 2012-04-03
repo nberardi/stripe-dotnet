@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Linq;
-using NUnit.Framework;
-
+using Xunit;
 
 namespace Stripe.Tests
 {
-	[TestFixture]
 	public class SubscriptionTests
 	{
 		private dynamic _plan;
@@ -13,8 +11,7 @@ namespace Stripe.Tests
 
 		private StripeClient _client;
 
-		[TestFixtureSetUp]
-		public void Setup()
+		public SubscriptionTests()
 		{
 			_client = new StripeClient(Constants.ApiKey);
 
@@ -29,25 +26,25 @@ namespace Stripe.Tests
 			_customer = _client.CreateCustomer(card);
 		}
 
-		[Test]
+		[Fact]
 		public void UpdateCustomersSubscription_Test()
 		{
 			dynamic response = _client.UpdateCustomersSubscription(_customer.Id, _plan.Id);
 
-			Assert.IsNotNull(response);
-			Assert.IsFalse(response.IsError);
+			Assert.NotNull(response);
+			Assert.False(response.IsError);
 		}
 
-		[Test]
+		[Fact]
 		public void CancelCustomersSubscription_Test()
 		{
 			_client.UpdateCustomersSubscription(_customer.Id, _plan.Id);
 			dynamic response = _client.CancelCustomersSubscription(_customer.Id);
 
-			Assert.IsNotNull(response);
-			Assert.IsFalse(response.IsError);
-			Assert.IsNotNull(response.CanceledAt);
-			Assert.IsNotNull(response.EndedAt);
+			Assert.NotNull(response);
+			Assert.False(response.IsError);
+			Assert.NotNull(response.CanceledAt);
+			Assert.NotNull(response.EndedAt);
 		}
 	}
 }

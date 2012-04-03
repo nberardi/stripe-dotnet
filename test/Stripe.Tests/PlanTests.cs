@@ -1,34 +1,31 @@
 ﻿using System;
 using System.Linq;
-using NUnit.Framework;
-
+using Xunit;
 
 namespace Stripe.Tests
 {
-	[TestFixture]
 	public class PlanTests
 	{
 		private StripeClient _client;
 
-		[TestFixtureSetUp]
-		public void Setup()
+		public PlanTests()
 		{
 			_client = new StripeClient(Constants.ApiKey);
 		}
 
-		[Test]
+		[Fact]
 		public void CreatePlan_Test()
 		{
 			var id = Guid.NewGuid().ToString();
 
 			dynamic response = _client.CreatePlan(id, 400M, "usd", PlanFrequency.Month, id);
 
-			Assert.IsNotNull(response);
-			Assert.IsFalse(response.IsError);
-			Assert.IsNotNull(response.Id);
+			Assert.NotNull(response);
+			Assert.False(response.IsError);
+			Assert.NotNull(response.Id);
 		}
 
-		[Test]
+		[Fact]
 		public void RetrievePlan_Test()
 		{
 			var id = Guid.NewGuid().ToString();
@@ -36,12 +33,12 @@ namespace Stripe.Tests
 			dynamic plan = _client.CreatePlan(id, 400M, "usd", PlanFrequency.Month, id);
 			dynamic response = _client.RetreivePlan(plan.Id);
 
-			Assert.IsNotNull(response);
-			Assert.IsFalse(response.IsError);
-			Assert.AreEqual(plan.Id, response.Id);
+			Assert.NotNull(response);
+			Assert.False(response.IsError);
+			Assert.Equal(plan.Id, response.Id);
 		}
 
-		[Test]
+		[Fact]
 		public void DeletePlan_Test()
 		{
 			var id = Guid.NewGuid().ToString();
@@ -49,20 +46,20 @@ namespace Stripe.Tests
 			dynamic plan = _client.CreatePlan(id, 400M, "usd", PlanFrequency.Month, id);
 			dynamic response = _client.DeletePlan(plan.Id);
 
-			Assert.IsNotNull(response);
-			Assert.IsFalse(response.IsError);
-			Assert.IsTrue(response.Deleted);
-			Assert.AreEqual(plan.Id, response.Id);
+			Assert.NotNull(response);
+			Assert.False(response.IsError);
+			Assert.True(response.Deleted);
+			Assert.Equal(plan.Id, response.Id);
 		}
 
-		[Test]
+		[Fact]
 		public void ListPlans_Test()
 		{
 			dynamic response = _client.ListPlans();
 
-			Assert.IsNotNull(response);
-			Assert.IsFalse(response.IsError);
-			Assert.IsTrue(response.Count > 0);
+			Assert.NotNull(response);
+			Assert.False(response.IsError);
+			Assert.True(response.Count > 0);
 		}
 	}
 }

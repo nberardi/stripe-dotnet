@@ -5,19 +5,28 @@ using System.Collections.Generic;
 
 namespace Stripe
 {
-	public class StripeArray : JsonObject, IEnumerable<JsonObject>
+	public class StripeArray : IEnumerable<JsonObject>
 	{
-		public bool IsError { get { return HasProperty("error"); } }
+		private JsonObject _internalJson;
+
+		public bool IsError { get { return _internalJson.HasProperty("error"); } }
+
+		public JsonObject Error { get { return (JsonObject)_internalJson.GetProperty("error"); } }
+
+		internal void SetModel(IDictionary<string, object> model)
+		{
+			_internalJson = new JsonObject();
+			_internalJson.SetModel(model);
+		}
 
 		#region IEnumerable<JsonObject> Members
 
 		public IEnumerator<JsonObject> GetEnumerator()
 		{
-			object data;
-			TryGetProperty("data", out data);
+			object data = _internalJson.GetProperty("data");
 
 			if (data != null)
-				return ((IEnumerable<JsonObject>)data).GetEnumerator();
+				return ((List<object>)data).OfType<JsonObject>().GetEnumerator();
 
 			return new List<JsonObject>(0).GetEnumerator();
 		}
