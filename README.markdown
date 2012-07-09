@@ -25,7 +25,7 @@ var card = new CreditCard {
 };
 
 dynamic response = api.CreateCharge(
-	amount: 10000, // $100
+	amount: 100, // $100
 	currency: "usd",
 	card: card);
 
