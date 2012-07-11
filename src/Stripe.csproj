@@ -35,11 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.4.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="RestSharp">
-      <HintPath>..\packages\RestSharp.102.7\lib\net35\RestSharp.dll</HintPath>
+    <Reference Include="RestSharp, Version=103.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\RestSharp.103.2\lib\net4\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -50,7 +48,6 @@
     <Compile Include="StripeClient.Events.cs" />
     <Compile Include="CreditCardToken.cs" />
     <Compile Include="ICreditCard.cs" />
-    <Compile Include="JsonDeserializer.cs" />
     <Compile Include="CouponDuration.cs" />
     <Compile Include="JsonObject.cs" />
     <Compile Include="JsonPropertyNameEqualityComparer.cs" />

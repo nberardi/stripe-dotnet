@@ -95,14 +95,5 @@ namespace Stripe
 			var serializer = new JavaScriptSerializer();
 			return serializer.Deserialize<IDictionary<string, object>>(input);
 		}
-
-		/// <summary>
-		/// Execute a manual REST request
-		/// </summary>
-		/// <param name="request">The RestRequest to execute (will use client credentials)</param>
-		public RestResponse Execute(RestRequest request)
-		{
-			return _client.Execute(request);
-		}
 	}
 }

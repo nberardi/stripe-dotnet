@@ -2,7 +2,7 @@
 <package>
 	<metadata>
 		<id>Stripe</id>
-		<version>1.4.1</version>
+		<version>1.5.0</version>
 		<title>Stripe</title>
 		<authors>Nick Berardi</authors>
 		<owners>Stripe, Inc</owners>
@@ -15,8 +15,8 @@
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<tags>payment gateway rest api .net40</tags>
 		<dependencies>
-			<dependency id="Newtonsoft.Json" version="[4.0.8]" />
-			<dependency id="RestSharp" version="[102.7]" />
+			<dependency id="Newtonsoft.Json" />
+			<dependency id="RestSharp" />
 		</dependencies>
 		<frameworkAssemblies>
 			<frameworkAssembly assemblyName="System.Core" targetFramework="net40" />
