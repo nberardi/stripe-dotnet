@@ -31,12 +31,6 @@ namespace Stripe
 			_client.UserAgent = "stripe-dotnet/" + version;
 			_client.Authenticator = new StripeAuthenticator(apiKey);
 			_client.BaseUrl = String.Format("{0}{1}", ApiEndpoint, ApiVersion);
-
-			//_client.AddHandler("application/json", new JsonDeserializer());
-			//_client.AddHandler("text/json", new JsonDeserializer());
-			//_client.AddHandler("text/x-json", new JsonDeserializer());
-			//_client.AddHandler("text/javascript", new JsonDeserializer());
-			//_client.AddHandler("*", new JsonDeserializer());
 		}
 
 		/// <summary>
@@ -50,9 +44,7 @@ namespace Stripe
 				// for individual resources when there's an error to make
 				// sure that RestException props are populated
 				if (((int)resp.StatusCode) >= 400)
-				{
 					request.RootElement = "";
-				}
 			};
 
 			var response = _client.Execute(request);
@@ -74,9 +66,7 @@ namespace Stripe
 				// for individual resources when there's an error to make
 				// sure that RestException props are populated
 				if (((int)resp.StatusCode) >= 400)
-				{
 					request.RootElement = "";
-				}
 			};
 
 			var response = _client.Execute(request);
