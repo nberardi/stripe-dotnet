@@ -8,7 +8,32 @@ namespace Stripe
 {
 	public partial class StripeClient
 	{
-		public StripeObject CreateCharge(decimal amount, string currency, string customerId, string description = null)
+        /// <summary>
+        /// Creates a charge using a token retrieved via the browser
+        /// </summary>
+        /// <returns></returns>
+        public StripeObject CreateChargeWithToken(decimal amount, string token, string currency="usd", string description = null)
+        {
+            Require.Argument("amount", amount);
+            Require.Argument("currency", currency);
+            Require.Argument("token", token);
+
+            if (amount < 0.5M)
+                throw new ArgumentOutOfRangeException("amount", amount, "Amount must be at least 50 cents");
+
+            var request = new RestRequest();
+            request.Method = Method.POST;
+            request.Resource = "charges";
+
+            request.AddParameter("amount", Convert.ToInt32(amount * 100M));
+            request.AddParameter("currency", currency);
+            request.AddParameter("card", token);
+            if (description.HasValue()) request.AddParameter("description", description);
+
+            return ExecuteObject(request);
+        }
+        
+        public StripeObject CreateCharge(decimal amount, string currency, string customerId, string description = null)
 		{
 			Require.Argument("amount", amount);
 			Require.Argument("currency", currency);
