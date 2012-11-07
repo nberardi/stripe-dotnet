@@ -14,7 +14,7 @@ namespace Stripe.Tests
 		public ChargeTests()
 		{
 			_card = new CreditCard {
-				Number = "4111111111111111",
+				Number = "4242 4242 4242 4242",
 				ExpMonth = 3,
 				ExpYear = 2015
 			};
@@ -22,7 +22,15 @@ namespace Stripe.Tests
 			_client = new StripeClient(Constants.ApiKey);
 			_customer = _client.CreateCustomer(_card);
 		}
-
+        [Fact]
+        public void CreateCharge_Using_Token()
+        {
+            dynamic token = _client.CreateCardToken(_card);
+            dynamic response = _client.CreateChargeWithToken(100M,token.Id);
+            Assert.NotNull(response);
+            Assert.False(response.IsError);
+            Assert.True(response.Paid);
+        }
 		[Fact]
 		public void CreateCharge_Card_Test()
 		{
