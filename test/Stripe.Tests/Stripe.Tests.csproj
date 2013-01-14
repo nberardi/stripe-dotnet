@@ -45,6 +45,7 @@
     <Compile Include="ChargeTests.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="CardTokenTests.cs" />
+    <Compile Include="AccountTests.cs" />
     <Compile Include="EventTests.cs" />
     <Compile Include="InvoiceTests.cs" />
     <Compile Include="CouponTests.cs" />
