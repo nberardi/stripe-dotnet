@@ -45,6 +45,7 @@
     <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="StripeClient.OAuth.cs" />
     <Compile Include="StripeClient.Accounts.cs" />
     <Compile Include="StripeClient.Events.cs" />
     <Compile Include="CreditCardToken.cs" />
