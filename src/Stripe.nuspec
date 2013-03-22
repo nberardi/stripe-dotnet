@@ -2,7 +2,7 @@
 <package>
 	<metadata>
 		<id>Stripe</id>
-		<version>1.7.0</version>
+		<version>1.8.0</version>
 		<title>Stripe</title>
 		<authors>Nick Berardi</authors>
 		<owners>Stripe, Inc</owners>
@@ -13,7 +13,7 @@
 		<licenseUrl>https://github.com/hoppio/stripe-dotnet/raw/master/LICENSE.txt</licenseUrl>
 		<iconUrl>https://github.com/hoppio/stripe-dotnet/raw/master/nuget/Stripe.Logo.png</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<tags>payment gateway rest api .net40</tags>
+		<tags>payment gateway rest api .net40 .net45</tags>
 		<dependencies>
 			<dependency id="RestSharp" />
 		</dependencies>

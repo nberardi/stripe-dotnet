@@ -14,6 +14,7 @@ namespace Stripe
 
 		public string AddressLine1 { get; set; }
 		public string AddressLine2 { get; set; }
+		public string AddressCity { get; set; }
 		public string AddressState { get; set; }
 		public string AddressZip { get; set; }
 		public string AddressCountry { get; set; }
@@ -52,7 +53,7 @@ namespace Stripe
 		}
 
 		/// <summary>
-		/// Preforms basic validation to make sure required values are present.
+		/// Performs basic validation to make sure required values are present.
 		/// </summary>
 		void ICreditCard.Validate()
 		{
@@ -73,8 +74,9 @@ namespace Stripe
 			if (Name.HasValue()) request.AddParameter("card[name]", Name);
 			if (AddressLine1.HasValue()) request.AddParameter("card[address_line1]", AddressLine1);
 			if (AddressLine2.HasValue()) request.AddParameter("card[address_line2]", AddressLine2);
-			if (AddressZip.HasValue()) request.AddParameter("card[address_zip]", AddressZip);
+			if (AddressCity.HasValue()) request.AddParameter("card[address_city]", AddressCity);
 			if (AddressState.HasValue()) request.AddParameter("card[address_state]", AddressState);
+			if (AddressZip.HasValue()) request.AddParameter("card[address_zip]", AddressZip);
 			if (AddressCountry.HasValue()) request.AddParameter("card[address_country]", AddressCountry);
 		}
 	}
