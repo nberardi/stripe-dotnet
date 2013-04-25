@@ -14,7 +14,7 @@ namespace $rootnamespace$
 				Number = "4242424242424242",
 				ExpMonth = 3,
 				ExpYear = 2015,
-				Cvc = 123
+				Cvc = "123"
 			};
 
 			dynamic response = api.CreateCharge(
