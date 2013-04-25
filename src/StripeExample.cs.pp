@@ -11,17 +11,18 @@ namespace $rootnamespace$
 			var api = new StripeClient(apiKey); // you can learn more about the api here https://stripe.com/docs/api
 
 			var card = new CreditCard {
-				Number = "4111111111111111",
+				Number = "4242424242424242",
 				ExpMonth = 3,
-				ExpYear = 2015
+				ExpYear = 2015,
+				Cvc = 123
 			};
 
 			dynamic response = api.CreateCharge(
-				amount: 10000, // $100
+				amount: 100.00m, // $100
 				currency: "usd",
 				card: card);
 
-			if (response.Paid)
+			if (!response.IsError && response.Paid)
 				Console.WriteLine("Whoo Hoo...  We made our first sale!");
 			else
 				Console.WriteLine("Payment failed. :(");
