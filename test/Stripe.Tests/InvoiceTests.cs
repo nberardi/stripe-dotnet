@@ -34,6 +34,17 @@ namespace Stripe.Tests
 		}
 
 		[Fact]
+		public void CreateInvoice_Test()
+		{
+			dynamic invoiceItem = _client.CreateInvoiceItem(_customer.Id, 100M, "usd");
+			dynamic response = _client.CreateInvoice(_customer.Id);
+
+			Assert.NotNull(response);
+			Assert.False(response.IsError);
+			Assert.False(response.closed);
+		}
+
+		[Fact]
 		public void RetrieveInvoiceItem_Test()
 		{
 			dynamic invoiceItem = _client.CreateInvoiceItem(_customer.Id, 100M, "usd");
@@ -54,6 +65,19 @@ namespace Stripe.Tests
 			Assert.False(response.IsError);
 			Assert.Equal(invoiceItem.Id, response.Id);
 			Assert.NotEqual(invoiceItem.Amount, response.Amount);
+		}
+
+		[Fact]
+		public void UpdateInvoice_Test()
+		{
+			dynamic invoiceItem = _client.CreateInvoiceItem(_customer.Id, 100M, "usd");
+			dynamic invoice = _client.CreateInvoice(_customer.Id);
+			dynamic response = _client.UpdateInvoice(invoice.Id, true);
+
+			Assert.NotNull(response);
+			Assert.False(response.IsError);
+			Assert.Equal(invoice.Id, response.Id);
+			Assert.True(response.Closed);
 		}
 
 		[Fact]
