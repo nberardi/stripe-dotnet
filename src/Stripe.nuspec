@@ -2,7 +2,7 @@
 <package>
 	<metadata>
 		<id>Stripe</id>
-		<version>1.8.0</version>
+		<version>1.9.0</version>
 		<title>Stripe</title>
 		<authors>Nick Berardi</authors>
 		<owners>Stripe, Inc</owners>
