@@ -7,6 +7,19 @@ namespace Stripe
 {
 	public partial class StripeClient
 	{
+		public StripeObject CreateInvoice(string customerId)
+		{
+			Require.Argument("customerId", customerId);
+
+			var request = new RestRequest();
+			request.Method = Method.POST;
+			request.Resource = "invoices";
+
+			request.AddParameter("customer", customerId);
+
+			return ExecuteObject(request);
+		}
+
 		public StripeObject CreateInvoiceItem(string customerId, decimal amount, string currency, string description = null)
 		{
 			Require.Argument("customerId", customerId);
@@ -89,6 +102,21 @@ namespace Stripe
 			request.Resource = "invoices/{invoiceId}";
 
 			request.AddUrlSegment("invoiceId", invoiceId);
+
+			return ExecuteObject(request);
+		}
+
+		public StripeObject UpdateInvoice(string invoiceId, bool closed)
+		{
+			Require.Argument("invoiceId", invoiceId);
+
+			var request = new RestRequest();
+			request.Method = Method.POST;
+			request.Resource = "invoices/{invoiceId}";
+
+			request.AddUrlSegment("invoiceId", invoiceId);
+
+			request.AddParameter("closed", closed);
 
 			return ExecuteObject(request);
 		}
