@@ -49,11 +49,11 @@ namespace Stripe.Tests
 		[Fact]
 		public void ListCoupons_Test()
 		{
-			dynamic response = _client.ListCoupons();
+			StripeArray response = _client.ListCoupons();
 
 			Assert.NotNull(response);
 			Assert.False(response.IsError);
-			Assert.True(response.Count > 0);
+			Assert.True(response.Any());
 		}
 	}
 }

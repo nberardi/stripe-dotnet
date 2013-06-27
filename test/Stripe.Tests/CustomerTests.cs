@@ -14,7 +14,7 @@ namespace Stripe.Tests
 		public CustomerTests()
 		{
 			_card = new CreditCard {
-				Number = "4111111111111111",
+                Number = "4242424242424242",
 				ExpMonth = 3,
 				ExpYear = 2015
 			};
@@ -61,7 +61,7 @@ namespace Stripe.Tests
 		public void UpdateCustomer_Test()
 		{
 			var newCard = new CreditCard {
-				Number = "378734493671000",
+                Number = "4012888888881881",
 				ExpMonth = 12,
 				ExpYear = 2016
 			};
@@ -90,11 +90,11 @@ namespace Stripe.Tests
 		[Fact]
 		public void ListCharges_Test()
 		{
-			dynamic response = _client.ListCustomers();
+			StripeArray response = _client.ListCharges();
 
 			Assert.NotNull(response);
 			Assert.False(response.IsError);
-			Assert.True(response.Count > 0);
+			Assert.True(response.Any());
 		}
 	}
 }

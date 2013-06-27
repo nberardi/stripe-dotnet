@@ -77,11 +77,11 @@ namespace Stripe.Tests
 		[Fact]
 		public void ListCharges_Test()
 		{
-			dynamic response = _client.ListCharges();
+			StripeArray response = _client.ListCharges();
 
 			Assert.NotNull(response);
 			Assert.False(response.IsError);
-			Assert.True(response.Count > 0);
+			Assert.True(response.Any());
 		}
 	}
 }

@@ -17,7 +17,7 @@ namespace Stripe.Tests
 
 			var id = Guid.NewGuid().ToString();
 			var card = new CreditCard {
-				Number = "4111111111111111",
+				Number = "4242424242424242",
 				ExpMonth = 3,
 				ExpYear = 2015
 			};
