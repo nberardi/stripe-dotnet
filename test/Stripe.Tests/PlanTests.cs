@@ -55,11 +55,11 @@ namespace Stripe.Tests
 		[Fact]
 		public void ListPlans_Test()
 		{
-			dynamic response = _client.ListPlans();
+			StripeArray response = _client.ListPlans();
 
 			Assert.NotNull(response);
 			Assert.False(response.IsError);
-			Assert.True(response.Count > 0);
+			Assert.True(response.Any());
 		}
 	}
 }

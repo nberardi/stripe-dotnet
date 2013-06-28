@@ -16,11 +16,11 @@ namespace Stripe.Tests
 		[Fact]
 		public void ListEvents_Test()
 		{
-			dynamic response = _client.ListEvents();
+			StripeArray response = _client.ListEvents();
 
 			Assert.NotNull(response);
 			Assert.False(response.IsError);
-			Assert.True(response.Count > 0);
+			Assert.True(response.Any());
 		}
 	}
 }

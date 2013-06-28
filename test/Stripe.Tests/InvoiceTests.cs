@@ -14,7 +14,7 @@ namespace Stripe.Tests
 		public InvoiceTests()
 		{
 			_card = new CreditCard {
-				Number = "4111111111111111",
+                Number = "4242424242424242",
 				ExpMonth = 3,
 				ExpYear = 2015
 			};
@@ -95,22 +95,23 @@ namespace Stripe.Tests
 		[Fact]
 		public void ListInvoiceItems_Test()
 		{
-			dynamic response = _client.ListInvoiceItems();
+			StripeArray response = _client.ListInvoiceItems();
 
 			Assert.NotNull(response);
 			Assert.False(response.IsError);
-			Assert.True(response.Count > 0);
+			Assert.True(response.Any());
 		}
 
 		[Fact]
 		public void RetrieveInvoice_Test()
 		{
 			dynamic invoiceItem = _client.CreateInvoiceItem(_customer.Id, 100M, "usd");
-			dynamic response = _client.RetreiveInvoice(invoiceItem.Id);
+            dynamic invoice = _client.CreateInvoice(_customer.Id);
+            dynamic response = _client.RetreiveInvoice(invoice.Id);
 
 			Assert.NotNull(response);
 			Assert.False(response.IsError);
-			Assert.Equal(invoiceItem.Id, response.Id);
+            Assert.Equal(invoice.Id, response.Id);
 		}
 
 		[Fact]
@@ -126,12 +127,11 @@ namespace Stripe.Tests
 		[Fact]
 		public void ListInvoices_Test()
 		{
-			dynamic response = _client.ListInvoices();
+			StripeArray response = _client.ListInvoices();
 
 			Assert.NotNull(response);
 			Assert.False(response.IsError);
-			Assert.NotNull(response.Data);
-			Assert.True(response.Data.Count > 0);
+            Assert.True(response.Any());
 		}
 	}
 }
