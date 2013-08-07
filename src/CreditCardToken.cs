@@ -14,12 +14,12 @@ namespace Stripe
 
 		public string Token { get; set; }
 
-		void ICreditCard.Validate()
+		void IObjectValidation.Validate()
 		{
 			Require.Argument("card", Token);
 		}
 
-		void ICreditCard.AddParametersToRequest(RestRequest request)
+		void IObjectValidation.AddParametersToRequest(RestRequest request)
 		{
 			request.AddParameter("card", Token);
 		}

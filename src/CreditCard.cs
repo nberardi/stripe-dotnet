@@ -55,7 +55,7 @@ namespace Stripe
 		/// <summary>
 		/// Performs basic validation to make sure required values are present.
 		/// </summary>
-		void ICreditCard.Validate()
+		void IObjectValidation.Validate()
 		{
 			Require.Argument("card[number]", Number);
 			Require.Argument("card[exp_month]", ExpMonth);
@@ -65,7 +65,7 @@ namespace Stripe
 			Validate.IsBetween(ExpYear, DateTime.Now.Year, 2050);
 		}
 
-		void ICreditCard.AddParametersToRequest(RestRequest request)
+		void IObjectValidation.AddParametersToRequest(RestRequest request)
 		{
 			request.AddParameter("card[number]", Number);
 			request.AddParameter("card[exp_month]", ExpMonth);
