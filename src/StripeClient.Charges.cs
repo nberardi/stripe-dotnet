@@ -11,8 +11,9 @@ namespace Stripe
         /// <summary>
         /// Creates a charge using a token retrieved via the browser
         /// </summary>
+		/// <param name="application_fee">Fixed amount to charge for our service to the receiver. Comes out of total amount charged</param>
         /// <returns></returns>
-        public StripeObject CreateChargeWithToken(decimal amount, string token, string currency="usd", string description = null)
+		public StripeObject CreateChargeWithToken(decimal amount, string token, string currency = "usd", string description = null, decimal? application_fee = null)
         {
             Require.Argument("amount", amount);
             Require.Argument("currency", currency);
@@ -28,7 +29,13 @@ namespace Stripe
             request.AddParameter("amount", Convert.ToInt32(amount * 100M));
             request.AddParameter("currency", currency);
             request.AddParameter("card", token);
-            if (description.HasValue()) request.AddParameter("description", description);
+            if (description.HasValue()) 
+				request.AddParameter("description", description);
+
+			if (application_fee.HasValue)
+			{
+				request.AddParameter("application_fee",  Convert.ToInt32(application_fee.Value * 100M));
+			}
 
             return ExecuteObject(request);
         }
