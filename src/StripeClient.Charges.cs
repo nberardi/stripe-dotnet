@@ -29,13 +29,8 @@ namespace Stripe
             request.AddParameter("amount", Convert.ToInt32(amount * 100M));
             request.AddParameter("currency", currency);
             request.AddParameter("card", token);
-            if (description.HasValue()) 
-				request.AddParameter("description", description);
-
-			if (application_fee.HasValue)
-			{
-				request.AddParameter("application_fee",  Convert.ToInt32(application_fee.Value * 100M));
-			}
+            if (description.HasValue()) request.AddParameter("description", description);
+			if (application_fee.HasValue) request.AddParameter("application_fee",  Convert.ToInt32(application_fee.Value * 100M));
 
             return ExecuteObject(request);
         }
