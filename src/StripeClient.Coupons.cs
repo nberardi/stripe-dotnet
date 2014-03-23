@@ -39,6 +39,37 @@ namespace Stripe
 			return ExecuteObject(request);
 		}
 
+        public StripeObject CreateCoupon(decimal amountOff, string currency, CouponDuration duration, string couponId = null, int? durationInMonths = null, int? maxRedemptions = null, DateTimeOffset? redeemBy = null)
+        {
+            Require.Argument("amountOff", amountOff);
+            Require.Argument("currency", currency);
+            Require.Argument("duration", duration);
+            
+            if (duration == CouponDuration.Repeating)
+            {
+                Require.Argument("durationInMonths", durationInMonths);
+                Validate.IsBetween(durationInMonths.Value, 0, Int32.MaxValue);
+            }
+            else if (durationInMonths.HasValue && duration != CouponDuration.Repeating)
+            {
+                throw new ArgumentException("'durationInMonths' is only valid when 'duration' is set to 'Repeating'", "durationInMonths");
+            }
+
+            var request = new RestRequest();
+            request.Method = Method.POST;
+            request.Resource = "coupons";
+
+            if (couponId.HasValue()) request.AddParameter("id", couponId);
+            request.AddParameter("amount_off", Convert.ToInt32(amountOff * 100));
+            request.AddParameter("currency", currency);
+            request.AddParameter("duration", duration.ToString().ToLowerInvariant());
+            if (durationInMonths.HasValue) request.AddParameter("duration_in_months", durationInMonths.Value);
+            if (maxRedemptions.HasValue) request.AddParameter("max_redemptions", maxRedemptions.Value);
+            if (redeemBy.HasValue) request.AddParameter("redeem_by", redeemBy.Value.ToUnixEpoch());
+
+            return ExecuteObject(request);
+        }
+
 		public StripeObject RetreiveCoupon(string couponId)
 		{
 			Require.Argument("couponId", couponId);
