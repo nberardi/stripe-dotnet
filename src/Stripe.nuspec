@@ -2,20 +2,20 @@
 <package>
 	<metadata>
 		<id>Stripe</id>
-		<version>1.11.0</version>
+		<version>1.12.0-beta1</version>
 		<title>Stripe</title>
-		<authors>Nick Berardi</authors>
+		<authors>Nick Berardi, Paul Irwin</authors>
 		<owners>Stripe, Inc</owners>
 		<description>Stripe is a simple, developer-friendly way to accept payments online. We believe that enabling transactions on the web is a problem rooted in code, not finance, and we want to help put more websites in business.</description>
 		<summary>Stripe is a simple, developer-friendly way to accept payments online. We believe that enabling transactions on the web is a problem rooted in code, not finance, and we want to help put more websites in business.</summary>
 		<language>en-US</language>
-		<projectUrl>https://github.com/hoppio/stripe-dotnet</projectUrl>
-		<licenseUrl>https://github.com/hoppio/stripe-dotnet/raw/master/LICENSE.txt</licenseUrl>
-		<iconUrl>https://github.com/hoppio/stripe-dotnet/raw/master/nuget/Stripe.Logo.png</iconUrl>
+		<projectUrl>https://github.com/nberardi/stripe-dotnet</projectUrl>
+		<licenseUrl>https://github.com/nberardi/stripe-dotnet/raw/master/LICENSE.txt</licenseUrl>
+		<iconUrl>https://github.com/nberardi/stripe-dotnet/raw/master/nuget/Stripe.Logo.png</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<tags>payment gateway rest api .net40 .net45</tags>
+		<tags>stripe credit card payment gateway rest api .net40 .net45</tags>
 		<dependencies>
-			<dependency id="RestSharp" />
+			<dependency id="RestSharp" version="105.0.1" />
 		</dependencies>
 		<frameworkAssemblies>
 			<frameworkAssembly assemblyName="System.Core" targetFramework="net40" />
