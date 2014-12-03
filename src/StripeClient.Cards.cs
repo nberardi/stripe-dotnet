@@ -60,7 +60,7 @@ namespace Stripe
 			return ExecuteObject(request);
 		}
 
-		public StripeObject DeleteCustomer(string customerId, string cardId)
+		public StripeObject DeleteCard(string customerId, string cardId)
 		{
 			Require.Argument("customerId", customerId);
 			Require.Argument("cardId", cardId);
@@ -75,7 +75,7 @@ namespace Stripe
 			return ExecuteObject(request);
 		}
 
-		public StripeArray ListCustomers(string customerId, int? count = null, int? offset = null)
+		public StripeArray ListCards(string customerId, int? count = null, int? offset = null)
 		{
 			Require.Argument("customerId", customerId);
 
