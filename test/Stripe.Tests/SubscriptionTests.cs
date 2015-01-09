@@ -46,5 +46,22 @@ namespace Stripe.Tests
 			Assert.NotNull(response.CanceledAt);
 			Assert.NotNull(response.EndedAt);
 		}
+
+		[Fact]
+		public void CancelSingleCustomersSubscription_Test() {
+			dynamic subscriptionResponse = _client.UpdateCustomersSubscription(_customer.Id, _plan.Id);
+
+			Assert.NotNull(subscriptionResponse);
+			Assert.False(subscriptionResponse.IsError);
+
+			var subId = subscriptionResponse["id"];
+
+			dynamic response = _client.CancelCustomersSubscription(_customer.Id, subId);
+
+			Assert.NotNull(response);
+			Assert.False(response.IsError);
+			Assert.NotNull(response.CanceledAt);
+			Assert.NotNull(response.EndedAt);
+		}
 	}
 }

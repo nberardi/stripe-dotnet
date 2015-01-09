@@ -45,5 +45,20 @@ namespace Stripe
 
 			return ExecuteObject(request);
 		}
+
+		public StripeObject CancelCustomersSubscription(string customerId, string subscriptionId, bool? atPeriodEnd = null) {
+			Require.Argument("customerId", customerId);
+
+			var request = new RestRequest();
+			request.Method = Method.DELETE;
+			request.Resource = "customers/{customerId}/subscriptions/{subscriptionId}";
+
+			request.AddUrlSegment("customerId", customerId);
+			request.AddUrlSegment("subscriptionId", subscriptionId);
+
+			if (atPeriodEnd.HasValue) request.AddParameter("at_period_end", atPeriodEnd.Value);
+
+			return ExecuteObject(request);
+		}
 	}
 }
