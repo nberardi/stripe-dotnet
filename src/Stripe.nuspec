@@ -4,7 +4,7 @@
 		<id>Stripe</id>
 		<version>1.12.0</version>
 		<title>Stripe</title>
-		<authors>Nick Berardi, Paul Irwin</authors>
+		<authors>Nick Berardi, Paul Irwin, Giovani Brady</authors>
 		<owners>Stripe, Inc</owners>
 		<description>Stripe is a simple, developer-friendly way to accept payments online. We believe that enabling transactions on the web is a problem rooted in code, not finance, and we want to help put more websites in business.</description>
 		<summary>Stripe is a simple, developer-friendly way to accept payments online. We believe that enabling transactions on the web is a problem rooted in code, not finance, and we want to help put more websites in business.</summary>
