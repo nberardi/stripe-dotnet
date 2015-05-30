@@ -64,6 +64,7 @@
     <Compile Include="InvoiceTests.cs" />
     <Compile Include="CouponTests.cs" />
     <Compile Include="JsonPropertyNameEqualityComparerTest.cs" />
+    <Compile Include="RecipientTest.cs" />
     <Compile Include="SubscriptionTests.cs" />
     <Compile Include="PlanTests.cs" />
     <Compile Include="CustomerTests.cs" />
