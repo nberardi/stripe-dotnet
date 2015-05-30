@@ -50,11 +50,10 @@ namespace Stripe
 			return ExecuteObject(request);
 		}
 
-		public StripeObject UpdateInvoiceItem(string invoiceItemId, decimal amount, string currency, string description = null)
+		public StripeObject UpdateInvoiceItem(string invoiceItemId, decimal amount, string description = null)
 		{
 			Require.Argument("invoiceItemId", invoiceItemId);
 			Require.Argument("amount", amount);
-			Require.Argument("currency", currency);
 
 			var request = new RestRequest();
 			request.Method = Method.POST;
@@ -63,7 +62,6 @@ namespace Stripe
 			request.AddUrlSegment("invoiceItemId", invoiceItemId);
 
 			request.AddParameter("amount", Convert.ToInt32(amount * 100));
-			request.AddParameter("currency", currency);
 			if (description.HasValue()) request.AddParameter("description", description);
 
 			return ExecuteObject(request);

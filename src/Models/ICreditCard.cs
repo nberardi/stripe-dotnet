@@ -1,4 +1,8 @@
+using RestSharp;
+
 namespace Stripe
 {
-	public interface ICreditCard : IObjectValidation {}
+	public interface ICreditCard : IObjectValidation {
+        void AddParametersToRequest_Old(RestRequest request);
+    }
 }
