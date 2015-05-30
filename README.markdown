@@ -39,5 +39,5 @@ else
 # Authors
 
 *	Nick Berardi (https://github.com/nberardi)
-
-Copyright 2012 Stripe, Inc.
+*	Paul Irwin (https://github.com/paulirwin)
+*	Giovani Brady (https://github.com/Giovani-Brady)

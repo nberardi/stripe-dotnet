@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using RestSharp;
+﻿using RestSharp;
 using RestSharp.Validation;
 
 namespace Stripe
@@ -16,12 +14,22 @@ namespace Stripe
 
 		void IObjectValidation.Validate()
 		{
-			Require.Argument("card", Token);
+			Require.Argument("source", Token);
 		}
 
-		void IObjectValidation.AddParametersToRequest(RestRequest request)
+        public void Validate_Old()
+        {
+            Require.Argument("card", Token);
+        }
+
+        void IObjectValidation.AddParametersToRequest(RestRequest request)
 		{
-			request.AddParameter("card", Token);
+			request.AddParameter("source", Token);
 		}
-	}
+
+        public void AddParametersToRequest_Old(RestRequest request)
+        {
+            request.AddParameter("card", Token);
+        }
+    }
 }

@@ -4,8 +4,9 @@ using RestSharp.Validation;
 
 namespace Stripe
 {
-	public class BankAccount : IObjectValidation
+	public class BankAccount : IBankAccount
 	{
+        public string Currency { get; set; }
 		public string Country { get; set; }
 		public string RoutingNumber { get; set; }
 		public string AccountNumber { get; set; }
@@ -15,6 +16,7 @@ namespace Stripe
 		/// </summary>
 		void IObjectValidation.Validate()
 		{
+            Require.Argument("bank_account[currency]", Currency);
 			Require.Argument("bank_account[country]", Country);
 			Require.Argument("bank_account[routing_number]", RoutingNumber);
 			Require.Argument("bank_account[account_number]", AccountNumber);
@@ -22,7 +24,8 @@ namespace Stripe
 
 		void IObjectValidation.AddParametersToRequest(RestRequest request)
 		{
-			request.AddParameter("bank_account[country]", Country);
+            request.AddParameter("bank_account[currency]", Currency);
+            request.AddParameter("bank_account[country]", Country);
 			request.AddParameter("bank_account[routing_number]", RoutingNumber);
 			request.AddParameter("bank_account[account_number]", AccountNumber);
 		}

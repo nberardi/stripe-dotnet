@@ -19,7 +19,7 @@ namespace Stripe.Tests
 			var card = new CreditCard {
 				Number = "4242424242424242",
 				ExpMonth = 3,
-				ExpYear = 2015
+				ExpYear = (DateTime.Now.Year + 2)
 			};
 
 			_plan = _client.CreatePlan(id, 400M, "usd", PlanFrequency.Month, id);
