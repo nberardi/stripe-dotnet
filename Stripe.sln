@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.22823.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stripe", "src\Stripe.csproj", "{58E0E016-D1E9-4BCD-AD24-9DFD45D096A4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stripe.Tests", "test\Stripe.Tests\Stripe.Tests.csproj", "{7F5C4956-BE38-4D5F-A28E-BD6DE38479DA}"
