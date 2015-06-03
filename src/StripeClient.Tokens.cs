@@ -6,65 +6,65 @@ using RestSharp.Validation;
 
 namespace Stripe
 {
-	public partial class StripeClient
-	{
-		public StripeObject CreateCustomerToken(string customerId)
-		{
-			Require.Argument("customerId", customerId);
+    public partial class StripeClient
+    {
+        public StripeObject CreateCustomerToken(string customerId)
+        {
+            Require.Argument("customerId", customerId);
 
-			var request = new RestRequest();
-			request.Method = Method.POST;
-			request.Resource = "tokens";
+            var request = new RestRequest();
+            request.Method = Method.POST;
+            request.Resource = "tokens";
 
-			request.AddParameter("customer", customerId);
+            request.AddParameter("customer", customerId);
 
-			return ExecuteObject(request);
-		}
+            return ExecuteObject(request);
+        }
 
-		public StripeObject CreateBankAccountToken(BankAccount bankAccount)
-		{
-			Require.Argument("bankAccount", bankAccount);
-			((IObjectValidation)bankAccount).Validate();
+        public StripeObject CreateBankAccountToken(BankAccount bankAccount)
+        {
+            Require.Argument("bankAccount", bankAccount);
+            ((IObjectValidation)bankAccount).Validate();
 
-			var request = new RestRequest();
-			request.Method = Method.POST;
-			request.Resource = "tokens";
+            var request = new RestRequest();
+            request.Method = Method.POST;
+            request.Resource = "tokens";
 
-			((IObjectValidation)bankAccount).AddParametersToRequest(request);
+            ((IObjectValidation)bankAccount).AddParametersToRequest(request);
 
-			return ExecuteObject(request);
-		}
+            return ExecuteObject(request);
+        }
 
-		public StripeObject CreateCardToken(CreditCard card)
-		{
-			Require.Argument("card", card);
-			((ICreditCard)card).Validate();
+        public StripeObject CreateCardToken(ICreditCard card)
+        {
+            Require.Argument("card", card);
+            card.Validate();
 
-			var request = new RestRequest();
-			request.Method = Method.POST;
-			request.Resource = "tokens";
+            var request = new RestRequest();
+            request.Method = Method.POST;
+            request.Resource = "tokens";
 
-			((ICreditCard)card).AddParametersToRequest(request);
+            card.AddParametersToRequest_Old(request);
 
-			return ExecuteObject(request);
-		}
+            return ExecuteObject(request);
+        }
 
-		[Obsolete("Please use RetreiveToken instead of RetreiveCardToken.", error: false)]
-		public StripeObject RetrieveCardToken(string tokenId)
-		{
-			return RetreiveToken(tokenId);
-		}
+        [Obsolete("Please use RetreiveToken instead of RetreiveCardToken.", error: false)]
+        public StripeObject RetrieveCardToken(string tokenId)
+        {
+            return RetreiveToken(tokenId);
+        }
 
-		public StripeObject RetreiveToken(string tokenId)
-		{
-			Require.Argument("tokenId", tokenId);
+        public StripeObject RetreiveToken(string tokenId)
+        {
+            Require.Argument("tokenId", tokenId);
 
-			var request = new RestRequest();
-			request.Resource = "tokens/{tokenId}";
+            var request = new RestRequest();
+            request.Resource = "tokens/{tokenId}";
 
-			request.AddUrlSegment("tokenId", tokenId);
+            request.AddUrlSegment("tokenId", tokenId);
 
-			return ExecuteObject(request);
-		}
-	}
+            return ExecuteObject(request);
+        }
+    }
 }
