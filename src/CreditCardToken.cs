@@ -1,27 +1,35 @@
-﻿using System;
-using System.Linq;
-using RestSharp;
+﻿using RestSharp;
 using RestSharp.Validation;
 
 namespace Stripe
 {
-	public class CreditCardToken : ICreditCard
-	{
-		public CreditCardToken(string token)
-		{
-			this.Token = token;
-		}
+    public class CreditCardToken : ICreditCard
+    {
+        public CreditCardToken(string token)
+        {
+            this.Token = token;
+        }
 
-		public string Token { get; set; }
+        public string Token { get; set; }
 
-		void IObjectValidation.Validate()
-		{
-			Require.Argument("card", Token);
-		}
+        void IObjectValidation.Validate()
+        {
+            Require.Argument("source", Token);
+        }
 
-		void IObjectValidation.AddParametersToRequest(RestRequest request)
-		{
-			request.AddParameter("card", Token);
-		}
-	}
+        public void Validate_Old()
+        {
+            Require.Argument("card", Token);
+        }
+
+        void IObjectValidation.AddParametersToRequest(RestRequest request)
+        {
+            request.AddParameter("source", Token);
+        }
+
+        public void AddParametersToRequest_Old(RestRequest request)
+        {
+            request.AddParameter("card", Token);
+        }
+    }
 }
