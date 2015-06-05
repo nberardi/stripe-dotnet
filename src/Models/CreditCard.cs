@@ -7,11 +7,6 @@ namespace Stripe
 {
 	public class CreditCard : ICreditCard
 	{
-        /// <summary>
-        /// Token provided from Stripe.js after card creation
-        /// </summary>
-        public string Token { get; set; }
-
 		/// <summary>
 		/// Cardholder's full name
 		/// </summary>
@@ -62,58 +57,27 @@ namespace Stripe
 		/// </summary>
 		void IObjectValidation.Validate()
 		{
-			Require.Argument("number", Number);
-			Require.Argument("exp_month", ExpMonth);
-			Require.Argument("exp_year", ExpYear);
+			Require.Argument("card[number]", Number);
+			Require.Argument("card[exp_month]", ExpMonth);
+			Require.Argument("card[exp_year]", ExpYear);
 
 			Validate.IsBetween(ExpMonth, 1, 12);
-			Validate.IsBetween(ExpYear, DateTime.Now.Year, int.MaxValue);
+			Validate.IsBetween(ExpYear, DateTime.Now.Year, 2050);
 		}
 
 		void IObjectValidation.AddParametersToRequest(RestRequest request)
 		{
-            if (Token.HasValue())
-            {
-                request.AddParameter("source", Token);
-            }
-            else
-            {
-                request.AddParameter("source[object]", "card");
-                request.AddParameter("source[number]", Number);
-                request.AddParameter("source[exp_month]", ExpMonth);
-                request.AddParameter("source[exp_year]", ExpYear);
-                if (Cvc.HasValue()) request.AddParameter("source[cvc]", Cvc);
-                if (Name.HasValue()) request.AddParameter("source[name]", Name);
-                if (AddressLine1.HasValue()) request.AddParameter("source[address_line1]", AddressLine1);
-                if (AddressLine2.HasValue()) request.AddParameter("source[address_line2]", AddressLine2);
-                if (AddressCity.HasValue()) request.AddParameter("source[address_city]", AddressCity);
-                if (AddressState.HasValue()) request.AddParameter("source[address_state]", AddressState);
-                if (AddressZip.HasValue()) request.AddParameter("source[address_zip]", AddressZip);
-                if (AddressCountry.HasValue()) request.AddParameter("source[address_country]", AddressCountry);
-            }
+			request.AddParameter("card[number]", Number);
+			request.AddParameter("card[exp_month]", ExpMonth);
+			request.AddParameter("card[exp_year]", ExpYear);
+			if (Cvc.HasValue()) request.AddParameter("card[cvc]", Cvc);
+			if (Name.HasValue()) request.AddParameter("card[name]", Name);
+			if (AddressLine1.HasValue()) request.AddParameter("card[address_line1]", AddressLine1);
+			if (AddressLine2.HasValue()) request.AddParameter("card[address_line2]", AddressLine2);
+			if (AddressCity.HasValue()) request.AddParameter("card[address_city]", AddressCity);
+			if (AddressState.HasValue()) request.AddParameter("card[address_state]", AddressState);
+			if (AddressZip.HasValue()) request.AddParameter("card[address_zip]", AddressZip);
+			if (AddressCountry.HasValue()) request.AddParameter("card[address_country]", AddressCountry);
 		}
-
-        public void AddParametersToRequest_Old(RestRequest request)
-        {
-            if (Token.HasValue())
-            {
-                request.AddParameter("card", Token);
-            }
-            else
-            {
-                request.AddParameter("card[object]", "card");
-                request.AddParameter("card[number]", Number);
-                request.AddParameter("card[exp_month]", ExpMonth);
-                request.AddParameter("card[exp_year]", ExpYear);
-                if (Cvc.HasValue()) request.AddParameter("card[cvc]", Cvc);
-                if (Name.HasValue()) request.AddParameter("card[name]", Name);
-                if (AddressLine1.HasValue()) request.AddParameter("card[address_line1]", AddressLine1);
-                if (AddressLine2.HasValue()) request.AddParameter("card[address_line2]", AddressLine2);
-                if (AddressCity.HasValue()) request.AddParameter("card[address_city]", AddressCity);
-                if (AddressState.HasValue()) request.AddParameter("card[address_state]", AddressState);
-                if (AddressZip.HasValue()) request.AddParameter("card[address_zip]", AddressZip);
-                if (AddressCountry.HasValue()) request.AddParameter("card[address_country]", AddressCountry);
-            }
-        }
-    }
+	}
 }

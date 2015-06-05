@@ -35,16 +35,16 @@ namespace Stripe
 			return ExecuteObject(request);
 		}
 
-		public StripeObject CreateCardToken(ICreditCard card)
+		public StripeObject CreateCardToken(CreditCard card)
 		{
 			Require.Argument("card", card);
-			card.Validate();
+			((ICreditCard)card).Validate();
 
 			var request = new RestRequest();
 			request.Method = Method.POST;
 			request.Resource = "tokens";
 
-			card.AddParametersToRequest_Old(request);
+			((ICreditCard)card).AddParametersToRequest(request);
 
 			return ExecuteObject(request);
 		}

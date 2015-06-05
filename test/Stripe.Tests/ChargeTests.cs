@@ -16,8 +16,8 @@ namespace Stripe.Tests
 			_card = new CreditCard {
 				Number = "4242 4242 4242 4242",
 				ExpMonth = 3,
-				ExpYear = (DateTime.Now.Year + 2)
-            };
+				ExpYear = 2015
+			};
 
 			_client = new StripeClient(Constants.ApiKey);
 			_customer = _client.CreateCustomer(_card);

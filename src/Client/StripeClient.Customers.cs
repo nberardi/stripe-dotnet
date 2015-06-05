@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using RestSharp;
 using RestSharp.Validation;
@@ -9,11 +8,7 @@ namespace Stripe
 {
 	public partial class StripeClient
 	{
-        public StripeObject CreateCustomer(ICreditCard card = null, string coupon = null,
-            string email = null, string description = null, string plan = null,
-            DateTimeOffset? trialEnd = null, int? accountBalance = default(int),
-            IDictionary<string, string> metaData = null, int? quantity = null,
-            decimal? taxPercent = null)
+		public StripeObject CreateCustomer(ICreditCard card = null, string coupon = null, string email = null, string description = null, string plan = null, DateTimeOffset? trialEnd = null)
 		{
 			if (card != null) card.Validate();
 
@@ -21,19 +16,14 @@ namespace Stripe
 			request.Method = Method.POST;
 			request.Resource = "customers";
 
+			if (card != null) card.AddParametersToRequest(request);
 			if (coupon.HasValue()) request.AddParameter("coupon", coupon);
 			if (email.HasValue()) request.AddParameter("email", email);
 			if (description.HasValue()) request.AddParameter("description", description);
 			if (plan.HasValue()) request.AddParameter("plan", plan);
 			if (trialEnd.HasValue) request.AddParameter("trial_end", trialEnd.Value.ToUnixEpoch());
-            if (metaData != null) request.AddParameter("metadata", metaData);
-            if (accountBalance.HasValue) request.AddParameter("account_balance", accountBalance);
-            if (quantity > 1) request.AddParameter("quantity", quantity);
-            if (taxPercent.HasValue) request.AddParameter("tax_percent", taxPercent);
-            //if (card != null) request.AddBody(card);
-            if (card != null) card.AddParametersToRequest(request);
 
-            return ExecuteObject(request);
+			return ExecuteObject(request);
 		}
 
 		public StripeObject RetrieveCustomer(string customerId)
@@ -48,13 +38,8 @@ namespace Stripe
 			return ExecuteObject(request);
 		}
 
-		public StripeObject UpdateCustomer(string customerId, ICreditCard card = null, 
-            string coupon = null, string email = null, string description = null, 
-            int? accountBalance = null, string defaultSource = null,
-            IDictionary<string, string> metaData = null)
+		public StripeObject UpdateCustomer(string customerId, ICreditCard card = null, string coupon = null, string email = null, string description = null, int? accountBalance = null)
 		{
-            Require.Argument("customerId", customerId);
-
 			if (card != null) card.Validate();
 
 			var request = new RestRequest();
@@ -68,8 +53,6 @@ namespace Stripe
 			if (email.HasValue()) request.AddParameter("email", email);
 			if (description.HasValue()) request.AddParameter("description", description);
             if (accountBalance.HasValue) request.AddParameter("account_balance", accountBalance.Value);
-            if (defaultSource.HasValue()) request.AddParameter("default_source", defaultSource);
-            if (metaData != null) request.AddParameter("metadata", metaData);
 
 			return ExecuteObject(request);
 		}

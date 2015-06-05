@@ -16,8 +16,8 @@ namespace Stripe.Tests
 			_card = new CreditCard {
                 Number = "4242424242424242",
 				ExpMonth = 3,
-				ExpYear = (DateTime.Now.Year + 2)
-            };
+				ExpYear = 2015
+			};
 
 			_client = new StripeClient(Constants.ApiKey);
 		}
@@ -43,7 +43,7 @@ namespace Stripe.Tests
 			Assert.NotNull(response);
 			Assert.False(response.IsError);
 			Assert.NotNull(response.Id);
-			Assert.NotNull(response.Subscriptions);
+			Assert.NotNull(response.Subscription);
 		}
 
 		[Fact]
@@ -63,8 +63,8 @@ namespace Stripe.Tests
 			var newCard = new CreditCard {
                 Number = "4012888888881881",
 				ExpMonth = 12,
-				ExpYear = (DateTime.Now.Year + 2)
-            };
+				ExpYear = 2016
+			};
 
 			dynamic customer = _client.CreateCustomer(_card, email: _email);
 			dynamic response = _client.UpdateCustomer(customer.Id, newCard);
@@ -72,7 +72,7 @@ namespace Stripe.Tests
 			Assert.NotNull(response);
 			Assert.False(response.IsError);
 			Assert.Equal(customer.Id, response.Id);
-            Assert.NotEqual(customer.Sources.Data[0].Last4, response.Sources.Data[0].Last4);
+			Assert.NotEqual(customer.ActiveCard.Last4, response.ActiveCard.Last4);
 		}
 
 		[Fact]
