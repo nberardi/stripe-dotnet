@@ -62,13 +62,12 @@
     <Compile Include="Client\StripeClient.Cards.cs" />
     <Compile Include="Client\StripeClient.Accounts.cs" />
     <Compile Include="Client\StripeClient.Events.cs" />
-    <Compile Include="Infrastructure\CreditCardToken.cs" />
-    <Compile Include="Models\IBankAccount.cs" />
+    <Compile Include="CreditCardToken.cs" />
     <Compile Include="Models\ICreditCard.cs" />
-    <Compile Include="Infrastructure\CouponDuration.cs" />
+    <Compile Include="CouponDuration.cs" />
     <Compile Include="Infrastructure\JsonObject.cs" />
     <Compile Include="Infrastructure\JsonPropertyNameEqualityComparer.cs" />
-    <Compile Include="Infrastructure\PlanFrequency.cs" />
+    <Compile Include="PlanFrequency.cs" />
     <Compile Include="Infrastructure\StripeArray.cs" />
     <Compile Include="Infrastructure\StringExtensions.cs" />
     <Compile Include="Client\StripeClient.Charges.cs" />
@@ -86,7 +85,6 @@
     <Compile Include="Client\StripeClient.Tokens.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Client\StripeClient.Recipients.cs" />
     <None Include="packages.config" />
     <None Include="Stripe.nuspec">
       <SubType>Designer</SubType>
