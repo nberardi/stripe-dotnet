@@ -8,7 +8,7 @@ namespace Stripe
     public partial class StripeClient
     {
         public StripeObject CreateRefund(string chargeId, decimal? amount = null, bool refundApplicationFee = false,
-            bool reverseTransfer = false, string reason = null, Dictionary<string, object> metaData = null)
+            bool reverseTransfer = false, string reason = null, Dictionary<object, object> metaData = null)
         {
             Require.Argument("chargeId", chargeId);
 
@@ -23,14 +23,7 @@ namespace Stripe
 
             if (amount.HasValue) request.AddParameter("amount", Convert.ToInt32(amount * 100M));
             if (reason.HasValue()) request.AddParameter("reason", reason);
-
-            if (metaData != null)
-            {
-                foreach (var key in metaData.Keys)
-                {
-                    request.AddParameter(string.Format("metadata[{0}]", key), metaData[key]);
-                }
-            }
+            if (metaData != null) AddDictionaryParameter(metaData, "metadata", ref request);
 
             return ExecuteObject(request);
         }
@@ -50,7 +43,7 @@ namespace Stripe
             return ExecuteObject(request);
         }
 
-        public StripeObject UpdateRefund(string chargeId, string refundId, Dictionary<string, object> metaData = null)
+        public StripeObject UpdateRefund(string chargeId, string refundId, Dictionary<object, object> metaData = null)
         {
             Require.Argument("refundId", refundId);
             Require.Argument("chargeId", chargeId);
@@ -62,13 +55,7 @@ namespace Stripe
             request.AddUrlSegment("chargeId", chargeId);
             request.AddUrlSegment("refundId", refundId);
 
-            if (metaData != null)
-            {
-                foreach (var key in metaData.Keys)
-                {
-                    request.AddParameter(string.Format("metadata[{0}]", key), metaData[key]);
-                }
-            }
+            if (metaData != null) AddDictionaryParameter(metaData, "metadata", ref request);
 
             return ExecuteObject(request);
         }

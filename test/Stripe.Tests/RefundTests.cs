@@ -53,7 +53,7 @@ namespace Stripe.Tests
         {
             dynamic charge = _client.CreateCharge(100M, "usd", _card);
 
-            var metaData = new Dictionary<string, object>() {
+            var metaData = new Dictionary<object, object>() {
                 { "Shipping", "USPS" }
             };
 
