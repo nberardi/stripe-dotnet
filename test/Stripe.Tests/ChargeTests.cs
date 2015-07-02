@@ -64,18 +64,6 @@ namespace Stripe.Tests
         }
 
         [Fact]
-        public void RefundCharge_Test()
-        {
-            dynamic charge = _client.CreateCharge(100M, "usd", _customer.Id);
-            dynamic response = _client.RefundCharge(charge.Id);
-
-            Assert.NotNull(response);
-            Assert.False(response.IsError);
-            Assert.Equal(charge.Id, response.Id);
-            Assert.True(response.Refunded);
-        }
-
-        [Fact]
         public void ListCharges_Test()
         {
             StripeArray response = _client.ListCharges();

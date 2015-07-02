@@ -8,7 +8,7 @@ namespace Stripe
     public partial class StripeClient
     {
         public StripeObject CreateRefund(string chargeId, decimal? amount = null, bool refundApplicationFee = false,
-            bool reverseTransfer = false, string reason = null, Dictionary<string, string> metaData = null)
+            bool reverseTransfer = false, string reason = null, Dictionary<string, object> metaData = null)
         {
             Require.Argument("chargeId", chargeId);
 
@@ -23,7 +23,14 @@ namespace Stripe
 
             if (amount.HasValue) request.AddParameter("amount", Convert.ToInt32(amount * 100M));
             if (reason.HasValue()) request.AddParameter("reason", reason);
-            if (metaData != null) request.AddParameter("metadata", metaData);
+
+            if (metaData != null)
+            {
+                foreach (var key in metaData.Keys)
+                {
+                    request.AddParameter(string.Format("metadata[{0}]", key), metaData[key]);
+                }
+            }
 
             return ExecuteObject(request);
         }
@@ -43,7 +50,7 @@ namespace Stripe
             return ExecuteObject(request);
         }
 
-        public StripeObject UpdateRefund(string chargeId, string refundId, Dictionary<string, string> metaData = null)
+        public StripeObject UpdateRefund(string chargeId, string refundId, Dictionary<string, object> metaData = null)
         {
             Require.Argument("refundId", refundId);
             Require.Argument("chargeId", chargeId);
@@ -55,7 +62,13 @@ namespace Stripe
             request.AddUrlSegment("chargeId", chargeId);
             request.AddUrlSegment("refundId", refundId);
 
-            if (metaData != null) request.AddParameter("metadata", metaData);
+            if (metaData != null)
+            {
+                foreach (var key in metaData.Keys)
+                {
+                    request.AddParameter(string.Format("metadata[{0}]", key), metaData[key]);
+                }
+            }
 
             return ExecuteObject(request);
         }
@@ -65,13 +78,13 @@ namespace Stripe
             Require.Argument("chargeId", chargeId);
 
             var request = new RestRequest();
-            request.Method = Method.POST;
+            request.Method = Method.GET;
             request.Resource = "charges/{chargeId}/refunds";
 
             request.AddUrlSegment("chargeId", chargeId);
 
+            if (limit.HasValue) request.AddParameter("limit", limit, ParameterType.QueryString);
             if (endingBefore.HasValue()) request.AddParameter("ending_before", endingBefore);
-            if (limit.HasValue) request.AddParameter("limit", limit);
             if (startingAfter.HasValue()) request.AddParameter("starting_after", startingAfter);
 
             return ExecuteArray(request);

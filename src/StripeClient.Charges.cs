@@ -1,6 +1,5 @@
 ﻿﻿using System;
 using RestSharp;
-using RestSharp.Extensions;
 using RestSharp.Validation;
 
 
@@ -86,26 +85,6 @@ namespace Stripe
 			request.Resource = "charges/{chargeId}";
 
 			request.AddUrlSegment("chargeId", chargeId);
-
-			return ExecuteObject(request);
-		}
-
-		public StripeObject RefundCharge(string chargeId, decimal? amount = null)
-		{
-			Require.Argument("chargeId", chargeId);
-
-			var request = new RestRequest();
-			request.Method = Method.POST;
-			request.Resource = "charges/{chargeId}/refund";
-
-			request.AddUrlSegment("chargeId", chargeId);
-			if (amount.HasValue)
-			{
-				if (amount.Value < 0.5M)
-					throw new ArgumentOutOfRangeException("amount", amount, "Amount must be at least 50 cents");
-
-				request.AddParameter("amount", Convert.ToInt32(amount * 100M));
-			}
 
 			return ExecuteObject(request);
 		}
