@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using RestSharp;
-using RestSharp.Validation;
 
 namespace Stripe
 {
@@ -20,7 +18,7 @@ namespace Stripe
         /// <returns>Stripe Transfers Object</returns>
 		public StripeObject CreateTransfer(string amount, string currency, string destination, 
 			string sourceTransaction = null, string description = null, string statementDescriptor = null,
-			Dictionary<string, string> metaData = null)
+			Dictionary<object, object> metaData = null)
         {
             var request = new RestRequest() { Method = Method.POST, Resource = "transfers" };
 
@@ -31,7 +29,7 @@ namespace Stripe
             if (sourceTransaction.HasValue()) request.AddParameter("source_transaction", sourceTransaction);
             if (description.HasValue()) request.AddParameter("description", description);
             if (statementDescriptor.HasValue()) request.AddParameter("statement_descriptor", statementDescriptor);
-            if (metaData != null) request.AddParameter("metadata", metaData);
+            if (metaData != null) AddDictionaryParameter(metaData, "metadata", ref request);
 
             return ExecuteObject(request);
         }
@@ -58,14 +56,14 @@ namespace Stripe
         /// <param name="metaData">Useful for storing additional information about the transfer in a structured format</param>
         /// <returns>Stripe Transfers Object</returns>
 		public StripeObject UpdateTransfer(string transferId, string description = null,
-			Dictionary<string, string> metaData = null)
+			Dictionary<object, object> metaData = null)
         {
             var request = new RestRequest() { Method = Method.POST, Resource = "transfers/{transferId}" };
 
             request.AddUrlSegment("transferId", transferId);
 
             if (description.HasValue()) request.AddParameter("description", description);
-            if (metaData != null) request.AddParameter("metadata", metaData);
+            if (metaData != null) AddDictionaryParameter(metaData, "metadata", ref request);
 
             return ExecuteObject(request);
         }
