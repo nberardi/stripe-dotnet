@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using RestSharp;
-using RestSharp.Extensions;
 using RestSharp.Validation;
 
 
@@ -25,9 +24,9 @@ namespace Stripe
         /// <param name="shipping">Shipping information for the charge. Helps prevent fraud on charges for physical goods.</param>
         /// <returns>Stripe Charge Object</returns>
 		public StripeObject CreateChargeWithToken(decimal amount, string token, string currency = "usd",
-            string description = null, Dictionary<string, string> metaData = null, bool capture = true,
+            string description = null, Dictionary<object, object> metaData = null, bool capture = true,
             string statementDescriptor = null, string receiptEmail = null, string destination = null,
-            decimal? applicationFee = null, Dictionary<string, string> shipping = null)
+            decimal? applicationFee = null, Dictionary<object, object> shipping = null)
         {
             Require.Argument("amount", amount);
             Require.Argument("currency", currency);
@@ -54,10 +53,10 @@ namespace Stripe
         /// <param name="shipping">Shipping information for the charge. Helps prevent fraud on charges for physical goods.</param>
         /// <returns>Stripe Charge Object</returns>
         public StripeObject CreateCharge(decimal amount, string currency, string customerId,
-            string cardId = null, string description = null, Dictionary<string, string> metaData = null,
+            string cardId = null, string description = null, Dictionary<object, object> metaData = null,
              bool capture = true, string statementDescriptor = null, string receiptEmail = null,
              string destination = null, decimal? applicationFee = null,
-             Dictionary<string, string> shipping = null)
+             Dictionary<object, object> shipping = null)
         {
             Require.Argument("amount", amount);
             Require.Argument("currency", currency);
@@ -83,9 +82,9 @@ namespace Stripe
         /// <param name="shipping">Shipping information for the charge. Helps prevent fraud on charges for physical goods.</param>
         /// <returns>Stripe Charge Object</returns>
         public StripeObject CreateCharge(decimal amount, string currency, ICreditCard source,
-            string description = null, Dictionary<string, string> metaData = null, bool capture = true,
+            string description = null, Dictionary<object, object> metaData = null, bool capture = true,
             string statementDescriptor = null, string receiptEmail = null, string destination = null,
-            decimal? applicationFee = null, Dictionary<string, string> shipping = null)
+            decimal? applicationFee = null, Dictionary<object, object> shipping = null)
         {
             Require.Argument("amount", amount);
             Require.Argument("currency", currency);
@@ -96,10 +95,10 @@ namespace Stripe
         }
 
         private StripeObject CreateChargeGeneric<T>(decimal amount, string currency, string customerId = null,
-    T source = null, string description = null, Dictionary<string, string> metaData = null,
+    T source = null, string description = null, Dictionary<object, object> metaData = null,
      bool capture = true, string statementDescriptor = null, string receiptEmail = null,
      string destination = null, decimal? applicationFee = null,
-     Dictionary<string, string> shipping = null) where T : class
+     Dictionary<object, object> shipping = null) where T : class
         {
             if (amount < 0.5M)
                 throw new ArgumentOutOfRangeException("amount", amount, "Amount must be at least 50 cents");
@@ -132,12 +131,12 @@ namespace Stripe
             }
 
             if (description.HasValue()) request.AddParameter("description", description);
-            if (metaData != null) request.AddParameter("metadata", metaData);
             if (statementDescriptor.HasValue()) request.AddParameter("statement_descriptor", statementDescriptor);
             if (receiptEmail.HasValue()) request.AddParameter("receipt_email", receiptEmail);
             if (destination.HasValue()) request.AddParameter("destination", destination);
             if (applicationFee.HasValue) request.AddParameter("application_fee", Convert.ToInt32(applicationFee.Value * 100M));
-            if (shipping != null) request.AddParameter("shipping", shipping);
+            if (metaData != null) AddDictionaryParameter(metaData, "metadata", ref request);
+            if (shipping != null) AddDictionaryParameter(shipping, "shipping", ref request);
 
             return ExecuteObject(request);
         }
@@ -169,8 +168,8 @@ namespace Stripe
         /// <param name="fraudDetails">A set of key/value pairs you can attach to a charge giving information about its riskiness</param>
         /// <param name="shipping">Shipping information for the charge. Helps prevent fraud on charges for physical goods. </param>
         /// <returns>A Stripe Charge Object</returns>
-        public StripeObject UpdateCharge(string chargeId, string description = null, Dictionary<string, string> metaData = null,
-            string receiptEmail = null, Dictionary<string, string> fraudDetails = null, Dictionary<string, string> shipping = null)
+        public StripeObject UpdateCharge(string chargeId, string description = null, Dictionary<object, object> metaData = null,
+            string receiptEmail = null, Dictionary<object, object> fraudDetails = null, Dictionary<object, object> shipping = null)
         {
             Require.Argument("chargeId", chargeId);
 
@@ -181,10 +180,10 @@ namespace Stripe
             request.AddUrlSegment("chargeId", chargeId);
 
             if (description.HasValue()) request.AddParameter("description", description);
-            if (metaData != null) request.AddParameter("metadata", metaData);
             if (receiptEmail.HasValue()) request.AddParameter("receipt_email", receiptEmail);
-            if (fraudDetails != null) request.AddParameter("fraud_details", fraudDetails);
-            if (shipping != null) request.AddParameter("shipping", shipping);
+            if (fraudDetails != null) AddDictionaryParameter(fraudDetails, "fraud_details", ref request);
+            if (metaData != null) AddDictionaryParameter(metaData, "metadata", ref request);
+            if (shipping != null) AddDictionaryParameter(shipping, "shipping", ref request);
 
             return ExecuteObject(request);
         }
