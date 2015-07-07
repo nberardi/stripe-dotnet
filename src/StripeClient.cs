@@ -13,13 +13,14 @@ namespace Stripe
         public string ApiEndpoint { get; set; }
         public string ApiKey { get; private set; }
 
-        private RestClient _client;
+        private readonly RestClient _client;
 
-        public StripeClient(string apiKey)
+        public StripeClient(string apiKey, string apiVersion = null)
         {
             ApiVersion = "v1";
             ApiEndpoint = "https://api.stripe.com/";
             ApiKey = apiKey;
+
 
             // silverlight friendly way to get current version
             var assembly = Assembly.GetExecutingAssembly();
@@ -30,6 +31,7 @@ namespace Stripe
             _client.UserAgent = "stripe-dotnet/" + version;
             _client.Authenticator = new StripeAuthenticator(apiKey);
             _client.BaseUrl = new Uri(String.Format("{0}{1}", ApiEndpoint, ApiVersion));
+            _client.AddDefaultParameter("Stripe-Version", apiVersion.HasValue() ? apiVersion : "2015-04-07", ParameterType.HttpHeader);
         }
 
         /// <summary>
