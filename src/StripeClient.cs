@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Web.Script.Serialization;
 using RestSharp;
@@ -14,14 +13,19 @@ namespace Stripe
         public string ApiEndpoint { get; set; }
         public string ApiKey { get; private set; }
 
-        private RestClient _client;
+        private readonly RestClient _client;
 
         public StripeClient(string apiKey)
+            : this(apiKey, null)
+        {
+        }
+
+        public StripeClient(string apiKey, string apiVersion)
         {
             ApiVersion = "v1";
             ApiEndpoint = "https://api.stripe.com/";
             ApiKey = apiKey;
-
+            
             // silverlight friendly way to get current version
             var assembly = Assembly.GetExecutingAssembly();
             AssemblyName assemblyName = new AssemblyName(assembly.FullName);
@@ -31,6 +35,9 @@ namespace Stripe
             _client.UserAgent = "stripe-dotnet/" + version;
             _client.Authenticator = new StripeAuthenticator(apiKey);
             _client.BaseUrl = new Uri(String.Format("{0}{1}", ApiEndpoint, ApiVersion));
+
+            if (apiVersion.HasValue())
+                _client.AddDefaultParameter("Stripe-Version", apiVersion, ParameterType.HttpHeader);
         }
 
         /// <summary>
@@ -86,6 +93,14 @@ namespace Stripe
 
             var serializer = new JavaScriptSerializer();
             return serializer.Deserialize<IDictionary<string, object>>(input);
+        }
+
+        private void AddDictionaryParameter(IDictionary<object, object> parameter, string objectName, ref RestRequest request)
+        {
+            foreach (var key in parameter.Keys)
+            {
+                request.AddParameter(string.Format("{0}[{1}]", objectName, key), parameter[key]);
+            }
         }
     }
 }
