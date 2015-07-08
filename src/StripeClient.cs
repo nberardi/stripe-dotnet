@@ -88,5 +88,13 @@ namespace Stripe
             var serializer = new JavaScriptSerializer();
             return serializer.Deserialize<IDictionary<string, object>>(input);
         }
+
+        private void AddDictionaryParameter(IDictionary<object, object> parameter, string objectName, ref RestRequest request)
+        {
+            foreach (var key in parameter.Keys)
+            {
+                request.AddParameter(string.Format("{0}[{1}]", objectName, key), parameter[key]);
+            }
+        }
     }
 }
