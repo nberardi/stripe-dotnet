@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BankAccount.cs" />
+    <Compile Include="IBankAccount.cs" />
     <Compile Include="IObjectValidation.cs" />
     <Compile Include="StripeClient.Cards.cs" />
     <Compile Include="StripeClient.Accounts.cs" />
@@ -88,6 +89,7 @@
     </None>
     <Compile Include="StripeClient.Refunds.cs" />
     <Compile Include="StripeClient.Transfers.cs" />
+    <Compile Include="StripeClient.Recipient.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
