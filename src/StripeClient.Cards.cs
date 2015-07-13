@@ -3,92 +3,98 @@ using System.Linq;
 using RestSharp;
 using RestSharp.Validation;
 
-
 namespace Stripe
 {
-	public partial class StripeClient
-	{
-		public StripeObject CreateCard(string customerId, CreditCard card)
-		{
-			Require.Argument("customerId", customerId);
-			Require.Argument("card", card);
+    public partial class StripeClient
+    {
+        public StripeObject CreateCard(string customerOrRecipientId, ICreditCard card, bool isRecipient = false)
+        {
+            Require.Argument("customerOrRecipientId", customerOrRecipientId);
+            Require.Argument("card", card);
 
-			if (card != null) ((ICreditCard)card).Validate();
+            if (card != null)
+            {
+                card.Validate();
+            }
 
-			var request = new RestRequest();
-			request.Method = Method.POST;
-			request.Resource = "customers/{customerId}/cards";
+            var request = new RestRequest();
 
-			request.AddUrlSegment("customerId", customerId);
+            request.Method = Method.POST;
+            request.Resource = string.Format("{0}/{customerOrRecipientId}/cards", isRecipient ? "recipients" : "customers");
 
-			((ICreditCard)card).AddParametersToRequest(request);
+            request.AddUrlSegment("customerOrRecipientId", customerOrRecipientId);
 
-			return ExecuteObject(request);
-		}
+            card.AddParametersToRequest(request);
 
-		public StripeObject RetrieveCard(string customerId, string cardId)
-		{
-			Require.Argument("customerId", customerId);
-			Require.Argument("cardId", cardId);
+            return ExecuteObject(request);
+        }
 
-			var request = new RestRequest();
-			request.Resource = "customers/{customerId}/cards/{cardId}";
+        public StripeObject RetrieveCard(string customerOrRecipientId, string cardId, bool isRecipient = false)
+        {
+            Require.Argument("customerOrRecipientId", customerOrRecipientId);
+            Require.Argument("cardId", cardId);
 
-			request.AddUrlSegment("customerId", customerId);
-			request.AddUrlSegment("cardId", cardId);
+            var request = new RestRequest();
+            request.Resource = string.Format("{0}/{customerOrRecipientId}/cards/{cardId}", isRecipient ? "recipients" : "customers");
 
-			return ExecuteObject(request);
-		}
+            request.AddUrlSegment("customerOrRecipientId", customerOrRecipientId);
+            request.AddUrlSegment("cardId", cardId);
 
-		public StripeObject UpdateCard(string customerId, string cardId, CreditCard card)
-		{
-			Require.Argument("customerId", customerId);
-			Require.Argument("cardId", cardId);
-			Require.Argument("card", card);
+            return ExecuteObject(request);
+        }
 
-			if (card != null) ((ICreditCard)card).Validate();
+        public StripeObject UpdateCard(string customerOrRecipientId, string cardId, ICreditCard card, bool isRecipient = false)
+        {
+            Require.Argument("customerOrRecipientId", customerOrRecipientId);
+            Require.Argument("cardId", cardId);
+            Require.Argument("card", card);
 
-			var request = new RestRequest();
-			request.Method = Method.POST;
-			request.Resource = "customers/{customerId}/cards/{cardId}";
+            if (card != null)
+            {
+                card.Validate();
+            }
 
-			request.AddUrlSegment("customerId", customerId);
-			request.AddUrlSegment("cardId", cardId);
+            var request = new RestRequest();
+            request.Method = Method.POST;
+            request.Resource = string.Format("{0}/{customerOrRecipientId}/cards/{cardId}", isRecipient ? "recipients" : "customers");
 
-			((ICreditCard)card).AddParametersToRequest(request);
+            request.AddUrlSegment("customerOrRecipientId", customerOrRecipientId);
+            request.AddUrlSegment("cardId", cardId);
 
-			return ExecuteObject(request);
-		}
+            card.AddParametersToRequest(request);
 
-		public StripeObject DeleteCard(string customerId, string cardId)
-		{
-			Require.Argument("customerId", customerId);
-			Require.Argument("cardId", cardId);
+            return ExecuteObject(request);
+        }
 
-			var request = new RestRequest();
-			request.Method = Method.DELETE;
-			request.Resource = "customers/{customerId}/cards/{cardId}";
+        public StripeObject DeleteCard(string customerOrRecipientId, string cardId, bool isRecipient = false)
+        {
+            Require.Argument("customerOrRecipientId", customerOrRecipientId);
+            Require.Argument("cardId", cardId);
 
-			request.AddUrlSegment("customerId", customerId);
-			request.AddUrlSegment("cardId", cardId);
+            var request = new RestRequest();
+            request.Method = Method.DELETE;
+            request.Resource = string.Format("{0}/{customerOrRecipientId}/cards/{cardId}", isRecipient ? "recipients" : "customers");
 
-			return ExecuteObject(request);
-		}
+            request.AddUrlSegment("customerOrRecipientId", customerOrRecipientId);
+            request.AddUrlSegment("cardId", cardId);
 
-		public StripeArray ListCards(string customerId, int? count = null, int? offset = null)
-		{
-			Require.Argument("customerId", customerId);
+            return ExecuteObject(request);
+        }
 
-			var request = new RestRequest();
-			request.Method = Method.POST;
-			request.Resource = "customers/{customerId}/cards";
+        public StripeArray ListCards(string customerOrRecipientId, int? count = null, int? offset = null, bool isRecipient = false)
+        {
+            Require.Argument("customerOrRecipientId", customerOrRecipientId);
 
-			request.AddUrlSegment("customerId", customerId);
+            var request = new RestRequest();
+            request.Method = Method.POST;
+            request.Resource = string.Format("{0}/{customerOrRecipientId}/cards", isRecipient ? "recipients" : "customers");
 
-			if (count.HasValue) request.AddParameter("count", count.Value);
-			if (offset.HasValue) request.AddParameter("offset", offset.Value);
+            request.AddUrlSegment("customerOrRecipientId", customerOrRecipientId);
 
-			return ExecuteArray(request);
-		}
-	}
+            if (count.HasValue) request.AddParameter("count", count.Value);
+            if (offset.HasValue) request.AddParameter("offset", offset.Value);
+
+            return ExecuteArray(request);
+        }
+    }
 }
