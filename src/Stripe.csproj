@@ -86,6 +86,7 @@
     <None Include="Stripe.nuspec">
       <SubType>Designer</SubType>
     </None>
+    <Compile Include="StripeClient.Refunds.cs" />
     <Compile Include="StripeClient.Transfers.cs" />
   </ItemGroup>
   <ItemGroup />
