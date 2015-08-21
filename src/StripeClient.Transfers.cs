@@ -20,7 +20,11 @@ namespace Stripe
 			string sourceTransaction = null, string description = null, string statementDescriptor = null,
 			Dictionary<object, object> metaData = null)
         {
-            var request = new RestRequest() { Method = Method.POST, Resource = "transfers" };
+            var request = new RestRequest() 
+            { 
+                Method = Method.POST, 
+                Resource = "transfers" 
+            };
 
             request.AddParameter("amount", amount);
             request.AddParameter("currency", currency);
@@ -41,7 +45,11 @@ namespace Stripe
         /// <returns>Stripe Transfers Object</returns>
         public StripeObject RetrieveTransfer(string transferId)
         {
-            var request = new RestRequest() { Method = Method.GET, Resource = "transfers/{transferId}" };
+            var request = new RestRequest() 
+            { 
+                Method = Method.GET, 
+                Resource = "transfers/{transferId}" 
+            };
 
             request.AddUrlSegment("transferId", transferId);
 
@@ -58,7 +66,11 @@ namespace Stripe
 		public StripeObject UpdateTransfer(string transferId, string description = null,
 			Dictionary<object, object> metaData = null)
         {
-            var request = new RestRequest() { Method = Method.POST, Resource = "transfers/{transferId}" };
+            var request = new RestRequest() 
+            { 
+                Method = Method.POST, 
+                Resource = "transfers/{transferId}" 
+            };
 
             request.AddUrlSegment("transferId", transferId);
 
