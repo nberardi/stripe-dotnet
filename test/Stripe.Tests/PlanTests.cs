@@ -61,5 +61,21 @@ namespace Stripe.Tests
 			Assert.False(response.IsError);
 			Assert.True(response.Any());
 		}
+
+        [Fact]
+        public void UpdatePlan_Test()
+        {
+            var id = Guid.NewGuid().ToString();
+
+            string newName = "Testing123";
+
+            dynamic plan = _client.CreatePlan(id, 400M, "usd", PlanFrequency.Month, id);
+            dynamic response = _client.UpdatePlan(id, newName);
+
+            Assert.NotNull(response);
+			Assert.False(response.IsError);
+			Assert.Equal(plan.Id, response.Id);
+            Assert.Equal(response.name, newName);
+        }
 	}
 }
