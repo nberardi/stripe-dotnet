@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -36,7 +35,7 @@ namespace Stripe.Tests
         [Fact]
         public void CreateCharge_Card_Test()
         {
-            dynamic response = _client.CreateCharge(100M, "usd", _card, metadata: new Dictionary<object, object>() { { "Test", "123" } });
+            dynamic response = _client.CreateCharge(100M, "usd", _card);
 
             Assert.NotNull(response);
             Assert.False(response.IsError);
