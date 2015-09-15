@@ -5,6 +5,7 @@ namespace Stripe
 {
 	public enum PlanFrequency
 	{
+        Day,
 		Month,
 		Year
 	}
