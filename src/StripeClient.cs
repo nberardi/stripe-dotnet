@@ -95,7 +95,7 @@ namespace Stripe
             return serializer.Deserialize<IDictionary<string, object>>(input);
         }
 
-        private void AddDictionaryParameter(IDictionary<object, object> parameter, string objectName, ref RestRequest request)
+        private void AddDictionaryParameter(IDictionary<object, object> parameter, string objectName, RestRequest request)
         {
             foreach (var key in parameter.Keys)
             {
