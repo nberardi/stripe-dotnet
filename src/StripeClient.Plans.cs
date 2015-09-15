@@ -49,7 +49,7 @@ namespace Stripe
             if (intervalCount.HasValue) request.AddParameter("interval_count", intervalCount);
             if (trialPeriodDays.HasValue) request.AddParameter("trial_period_days", trialPeriodDays);
             if (statementDescriptor.HasValue()) request.AddParameter("statement_descriptor", statementDescriptor);
-            if (metaData != null) AddDictionaryParameter(metaData, "metadata", ref request);
+            if (metaData != null) AddDictionaryParameter(metaData, "metadata", request);
 
 			return ExecuteObject(request);
 		}
@@ -104,7 +104,7 @@ namespace Stripe
             request.Method = Method.GET;
 
             if (limit.HasValue) request.AddQueryParameter("limit", limit.ToString());
-            if (created != null) AddDictionaryParameter(created, "created", ref request);
+            if (created != null) AddDictionaryParameter(created, "created", request);
             if (endingBefore.HasValue()) request.AddParameter("ending_before", endingBefore);
             if (startingAfter.HasValue()) request.AddParameter("starting_after", startingAfter);
 
@@ -131,7 +131,7 @@ namespace Stripe
 
             if (name.HasValue()) request.AddParameter("name", name);
             if (statementDescriptor.HasValue()) request.AddParameter("statement_descriptor", statementDescriptor);
-            if (metadata != null) AddDictionaryParameter(metadata, "metadata", ref request);
+            if (metadata != null) AddDictionaryParameter(metadata, "metadata", request);
 
             return ExecuteObject(request);
         }
