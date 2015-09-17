@@ -33,7 +33,7 @@ namespace Stripe
             if (sourceTransaction.HasValue()) request.AddParameter("source_transaction", sourceTransaction);
             if (description.HasValue()) request.AddParameter("description", description);
             if (statementDescriptor.HasValue()) request.AddParameter("statement_descriptor", statementDescriptor);
-            if (metaData != null) AddDictionaryParameter(metaData, "metadata", ref request);
+            if (metaData != null) AddDictionaryParameter(metaData, "metadata", request);
 
             return ExecuteObject(request);
         }
@@ -75,7 +75,7 @@ namespace Stripe
             request.AddUrlSegment("transferId", transferId);
 
             if (description.HasValue()) request.AddParameter("description", description);
-            if (metaData != null) AddDictionaryParameter(metaData, "metadata", ref request);
+            if (metaData != null) AddDictionaryParameter(metaData, "metadata", request);
 
             return ExecuteObject(request);
         }

@@ -23,7 +23,7 @@ namespace Stripe
 
             if (amount.HasValue) request.AddParameter("amount", Convert.ToInt32(amount * 100M));
             if (reason.HasValue()) request.AddParameter("reason", reason);
-            if (metaData != null) AddDictionaryParameter(metaData, "metadata", ref request);
+            if (metaData != null) AddDictionaryParameter(metaData, "metadata", request);
 
             return ExecuteObject(request);
         }
@@ -55,7 +55,7 @@ namespace Stripe
             request.AddUrlSegment("chargeId", chargeId);
             request.AddUrlSegment("refundId", refundId);
 
-            if (metaData != null) AddDictionaryParameter(metaData, "metadata", ref request);
+            if (metaData != null) AddDictionaryParameter(metaData, "metadata", request);
 
             return ExecuteObject(request);
         }

@@ -128,8 +128,8 @@ namespace Stripe
             if (receiptEmail.HasValue()) request.AddParameter("receipt_email", receiptEmail);
             if (destination.HasValue()) request.AddParameter("destination", destination);
             if (applicationFee.HasValue) request.AddParameter("application_fee", Convert.ToInt32(applicationFee.Value * 100M));
-            if (metadata != null) AddDictionaryParameter(metadata, "metadata", ref request);
-            if (shipping != null) AddDictionaryParameter(shipping, "shipping", ref request);
+            if (metadata != null) AddDictionaryParameter(metadata, "metadata", request);
+            if (shipping != null) AddDictionaryParameter(shipping, "shipping", request);
 
             return request;
         }
@@ -174,9 +174,9 @@ namespace Stripe
 
             if (description.HasValue()) request.AddParameter("description", description);
             if (receiptEmail.HasValue()) request.AddParameter("receipt_email", receiptEmail);
-            if (fraudDetails != null) AddDictionaryParameter(fraudDetails, "fraud_details", ref request);
-            if (metadata != null) AddDictionaryParameter(metadata, "metadata", ref request);
-            if (shipping != null) AddDictionaryParameter(shipping, "shipping", ref request);
+            if (fraudDetails != null) AddDictionaryParameter(fraudDetails, "fraud_details", request);
+            if (metadata != null) AddDictionaryParameter(metadata, "metadata", request);
+            if (shipping != null) AddDictionaryParameter(shipping, "shipping", request);
 
             return ExecuteObject(request);
         }

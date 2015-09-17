@@ -43,7 +43,7 @@ namespace Stripe
             if (trialEnd.HasValue) request.AddParameter("trial_end", trialEnd);
             if (applicationFeePercent.HasValue) request.AddParameter("application_fee_percent", applicationFeePercent);
             if (taxPercent.HasValue) request.AddParameter("tax_percent", taxPercent);
-            if (metaData != null) AddDictionaryParameter(metaData, "metadata", ref request);
+            if (metaData != null) AddDictionaryParameter(metaData, "metadata", request);
 
             if (source != null)
             {
@@ -122,7 +122,7 @@ namespace Stripe
             if (trialEnd.HasValue) request.AddParameter("trial_end", trialEnd.Value.ToUnixEpoch());
             if (prorationDate.HasValue) request.AddParameter("proration_date", prorationDate.Value);
             if (applicationFeePercent.HasValue) request.AddParameter("application_fee_percent", applicationFeePercent);
-            if (metaData != null) AddDictionaryParameter(metaData, "metadata", ref request);
+            if (metaData != null) AddDictionaryParameter(metaData, "metadata", request);
 
             if (taxPercent.HasValue)
             {
