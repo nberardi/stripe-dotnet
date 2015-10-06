@@ -16,7 +16,7 @@ namespace Stripe.Tests
 		[Fact]
 		public void CreateCoupon_Test()
 		{
-			dynamic response = _client.CreateCoupon(75, CouponDuration.Once);
+            dynamic response = _client.CreateCoupon(CouponDuration.Once, amountOff: 75, currency: "usd");
 
 			Assert.NotNull(response);
 			Assert.False(response.IsError);
@@ -26,7 +26,7 @@ namespace Stripe.Tests
 		[Fact]
 		public void RetrieveCoupon_Test()
 		{
-			dynamic coupon = _client.CreateCoupon(75, CouponDuration.Once);
+			dynamic coupon = _client.CreateCoupon(CouponDuration.Once, amountOff: 75, currency: "usd");
 			dynamic response = _client.RetreiveCoupon(coupon.Id);
 
 			Assert.NotNull(response);
@@ -37,7 +37,7 @@ namespace Stripe.Tests
 		[Fact]
 		public void DeleteCustomer_Test()
 		{
-			dynamic coupon = _client.CreateCoupon(75, CouponDuration.Once);
+            dynamic coupon = _client.CreateCoupon(CouponDuration.Once, amountOff: 75, currency: "usd");
 			dynamic response = _client.DeleteCoupon(coupon.Id);
 
 			Assert.NotNull(response);
