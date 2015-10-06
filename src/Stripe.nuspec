@@ -15,7 +15,7 @@
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<tags>stripe credit card payment gateway rest api .net40 .net45</tags>
 		<dependencies>
-			<dependency id="RestSharp" version="105.0.1" />
+			<dependency id="RestSharp" version="105.2.3" />
 		</dependencies>
 		<frameworkAssemblies>
 			<frameworkAssembly assemblyName="System.Core" targetFramework="net40" />
