@@ -90,6 +90,7 @@
     <Compile Include="StripeClient.Refunds.cs" />
     <Compile Include="StripeClient.Transfers.cs" />
     <Compile Include="StripeClient.Recipient.cs" />
+    <Compile Include="StripeClient.BankAccounts.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

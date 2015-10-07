@@ -28,7 +28,7 @@ namespace Stripe
             if (email.HasValue()) request.AddParameter("email", email);
             if (description.HasValue()) request.AddParameter("description", description);
             if (card != null) card.AddParametersToRequest_Old(request);
-            if (bankAccount != null) bankAccount.AddParametersToRequest(request);
+            if (bankAccount != null) bankAccount.AddParametersToRequest_Old(request);
 
             return ExecuteObject(request);
         }

@@ -24,6 +24,15 @@ namespace Stripe
 
         void IObjectValidation.AddParametersToRequest(RestRequest request)
         {
+            request.AddParameter("external_account[object]", "bank_account");
+            request.AddParameter("external_account[currency]", Currency);
+            request.AddParameter("external_account[country]", Country);
+            request.AddParameter("external_account[routing_number]", RoutingNumber);
+            request.AddParameter("external_account[account_number]", AccountNumber);
+        }
+
+        public void AddParametersToRequest_Old(RestRequest request)
+        {
             request.AddParameter("bank_account[currency]", Currency);
             request.AddParameter("bank_account[country]", Country);
             request.AddParameter("bank_account[routing_number]", RoutingNumber);
