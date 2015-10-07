@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using RestSharp;
 
@@ -47,16 +48,7 @@ namespace Stripe
         /// <param name="request">The RestRequest to execute (will use client credentials)</param>
         public StripeObject ExecuteObject(RestRequest request)
         {
-            request.OnBeforeDeserialization = (resp) =>
-            {
-                // for individual resources when there's an error to make
-                // sure that RestException props are populated
-                if (((int)resp.StatusCode) >= 400)
-                    request.RootElement = "";
-            };
-
-            var response = _client.Execute(request);
-            var json = Deserialize(response.Content);
+            var json = ExecuteAsync(request).Result;
             var obj = new StripeObject();
             obj.SetModel(json);
 
@@ -70,16 +62,7 @@ namespace Stripe
         /// <param name="request">The RestRequest to execute (will use client credentials)</param>
         public StripeArray ExecuteArray(RestRequest request)
         {
-            request.OnBeforeDeserialization = (resp) =>
-            {
-                // for individual resources when there's an error to make
-                // sure that RestException props are populated
-                if (((int)resp.StatusCode) >= 400)
-                    request.RootElement = "";
-            };
-
-            var response = _client.Execute(request);
-            var json = Deserialize(response.Content);
+            var json = ExecuteAsync(request).Result;
             var obj = new StripeArray();
             obj.SetModel(json);
 
@@ -101,6 +84,23 @@ namespace Stripe
             {
                 request.AddParameter(string.Format("{0}[{1}]", objectName, key), parameter[key]);
             }
+        }
+
+        private Task<IDictionary<string, object>> ExecuteAsync(RestRequest request)
+        {
+            request.OnBeforeDeserialization = (resp) =>
+            {
+                // for individual resources when there's an error to make
+                // sure that RestException props are populated
+                if (((int)resp.StatusCode) >= 400)
+                    request.RootElement = "";
+            };
+
+            var taskSource = new TaskCompletionSource<IDictionary<string, object>>();
+
+            _client.ExecuteAsync(request, response => { taskSource.SetResult(Deserialize(response.Content)); });
+
+            return taskSource.Task;
         }
     }
 }
