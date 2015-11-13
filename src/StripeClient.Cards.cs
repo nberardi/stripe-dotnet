@@ -20,7 +20,7 @@ namespace Stripe
             var request = new RestRequest();
 
             request.Method = Method.POST;
-            request.Resource = string.Format("{0}/{customerOrRecipientId}/cards", isRecipient ? "recipients" : "customers");
+            request.Resource = string.Format("{0}/{{customerOrRecipientId}}/cards", isRecipient ? "recipients" : "customers");
 
             request.AddUrlSegment("customerOrRecipientId", customerOrRecipientId);
 
@@ -35,7 +35,7 @@ namespace Stripe
             Require.Argument("cardId", cardId);
 
             var request = new RestRequest();
-            request.Resource = string.Format("{0}/{customerOrRecipientId}/cards/{cardId}", isRecipient ? "recipients" : "customers");
+            request.Resource = string.Format("{0}/{{customerOrRecipientId}}/cards/{cardId}", isRecipient ? "recipients" : "customers");
 
             request.AddUrlSegment("customerOrRecipientId", customerOrRecipientId);
             request.AddUrlSegment("cardId", cardId);
@@ -56,7 +56,7 @@ namespace Stripe
 
             var request = new RestRequest();
             request.Method = Method.POST;
-            request.Resource = string.Format("{0}/{customerOrRecipientId}/cards/{cardId}", isRecipient ? "recipients" : "customers");
+            request.Resource = string.Format("{0}/{{customerOrRecipientId}}/cards/{cardId}", isRecipient ? "recipients" : "customers");
 
             request.AddUrlSegment("customerOrRecipientId", customerOrRecipientId);
             request.AddUrlSegment("cardId", cardId);
@@ -73,7 +73,7 @@ namespace Stripe
 
             var request = new RestRequest();
             request.Method = Method.DELETE;
-            request.Resource = string.Format("{0}/{customerOrRecipientId}/cards/{cardId}", isRecipient ? "recipients" : "customers");
+            request.Resource = string.Format("{0}/{{customerOrRecipientId}}/cards/{cardId}", isRecipient ? "recipients" : "customers");
 
             request.AddUrlSegment("customerOrRecipientId", customerOrRecipientId);
             request.AddUrlSegment("cardId", cardId);
@@ -87,7 +87,7 @@ namespace Stripe
 
             var request = new RestRequest();
             request.Method = Method.POST;
-            request.Resource = string.Format("{0}/{customerOrRecipientId}/cards", isRecipient ? "recipients" : "customers");
+            request.Resource = string.Format("{0}/{{customerOrRecipientId}}/cards", isRecipient ? "recipients" : "customers");
 
             request.AddUrlSegment("customerOrRecipientId", customerOrRecipientId);
 
