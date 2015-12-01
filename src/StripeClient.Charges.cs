@@ -102,7 +102,7 @@ namespace Stripe
                 statementDescriptor, receiptEmail, destination, applicationFee, shipping);
 
             source.Validate();
-            source.AddParametersToRequest(request);
+            source.AddParametersToRequest_Source(request);
 
             return ExecuteObject(request);
         }

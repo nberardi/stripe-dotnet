@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using RestSharp;
 using RestSharp.Validation;
 
@@ -78,6 +77,29 @@ namespace Stripe
             }
             else
             {
+                request.AddParameter("external_account[object]", "card");
+                request.AddParameter("external_account[number]", Number);
+                request.AddParameter("external_account[exp_month]", ExpMonth);
+                request.AddParameter("external_account[exp_year]", ExpYear);
+                if (Cvc.HasValue()) request.AddParameter("external_account[cvc]", Cvc);
+                if (Name.HasValue()) request.AddParameter("external_account[name]", Name);
+                if (AddressLine1.HasValue()) request.AddParameter("external_account[address_line1]", AddressLine1);
+                if (AddressLine2.HasValue()) request.AddParameter("external_account[address_line2]", AddressLine2);
+                if (AddressCity.HasValue()) request.AddParameter("external_account[address_city]", AddressCity);
+                if (AddressState.HasValue()) request.AddParameter("external_account[address_state]", AddressState);
+                if (AddressZip.HasValue()) request.AddParameter("external_account[address_zip]", AddressZip);
+                if (AddressCountry.HasValue()) request.AddParameter("external_account[address_country]", AddressCountry);
+            }
+        }
+
+        public void AddParametersToRequest_Source(RestRequest request)
+        {
+            if (Token.HasValue())
+            {
+                request.AddParameter("source", Token);
+            }
+            else
+            {
                 request.AddParameter("source[object]", "card");
                 request.AddParameter("source[number]", Number);
                 request.AddParameter("source[exp_month]", ExpMonth);
@@ -93,7 +115,7 @@ namespace Stripe
             }
         }
 
-        public void AddParametersToRequest_Old(RestRequest request)
+        public void AddParametersToRequest_Card(RestRequest request)
         {
             if (Token.HasValue())
             {
@@ -114,6 +136,19 @@ namespace Stripe
                 if (AddressZip.HasValue()) request.AddParameter("card[address_zip]", AddressZip);
                 if (AddressCountry.HasValue()) request.AddParameter("card[address_country]", AddressCountry);
             }
+        }
+
+        public void AddParametersToRequest_Update(RestRequest request)
+        {
+            if (ExpMonth > default(int)) request.AddParameter("exp_month", ExpMonth);
+            if (ExpYear > default(int)) request.AddParameter("exp_year", ExpYear);
+            if (Name.HasValue()) request.AddParameter("name", Name);
+            if (AddressLine1.HasValue()) request.AddParameter("address_line1", AddressLine1);
+            if (AddressLine2.HasValue()) request.AddParameter("address_line2", AddressLine2);
+            if (AddressCity.HasValue()) request.AddParameter("address_city", AddressCity);
+            if (AddressState.HasValue()) request.AddParameter("address_state", AddressState);
+            if (AddressZip.HasValue()) request.AddParameter("address_zip", AddressZip);
+            if (AddressCountry.HasValue()) request.AddParameter("address_country", AddressCountry);
         }
     }
 }

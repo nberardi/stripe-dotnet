@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using System;
+using RestSharp;
 using RestSharp.Validation;
 
 namespace Stripe
@@ -24,12 +25,22 @@ namespace Stripe
 
         void IObjectValidation.AddParametersToRequest(RestRequest request)
         {
+            request.AddParameter("external_account", Token);
+        }
+
+        public void AddParametersToRequest_Card(RestRequest request)
+        {
+            request.AddParameter("card", Token);
+        }
+
+        public void AddParametersToRequest_Source(RestRequest request)
+        {
             request.AddParameter("source", Token);
         }
 
-        public void AddParametersToRequest_Old(RestRequest request)
+        public void AddParametersToRequest_Update(RestRequest request)
         {
-            request.AddParameter("card", Token);
+            throw new NotImplementedException();
         }
     }
 }
