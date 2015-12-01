@@ -44,7 +44,7 @@ namespace Stripe
             request.Method = Method.POST;
             request.Resource = "tokens";
 
-            card.AddParametersToRequest_Old(request);
+            card.AddParametersToRequest_Card(request);
 
             return ExecuteObject(request);
         }

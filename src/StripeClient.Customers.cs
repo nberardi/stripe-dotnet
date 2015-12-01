@@ -30,7 +30,7 @@ namespace Stripe
             if (accountBalance.HasValue) request.AddParameter("account_balance", accountBalance);
             if (quantity > 1) request.AddParameter("quantity", quantity);
             if (taxPercent.HasValue) request.AddParameter("tax_percent", taxPercent);
-            if (card != null) card.AddParametersToRequest(request);
+            if (card != null) card.AddParametersToRequest_Source(request);
 
             return ExecuteObject(request);
         }
@@ -62,7 +62,7 @@ namespace Stripe
 
             request.AddUrlSegment("customerId", customerId);
 
-            if (card != null) card.AddParametersToRequest(request);
+            if (card != null) card.AddParametersToRequest_Source(request);
             if (coupon.HasValue()) request.AddParameter("coupon", coupon);
             if (email.HasValue()) request.AddParameter("email", email);
             if (description.HasValue()) request.AddParameter("description", description);

@@ -27,7 +27,7 @@ namespace Stripe
             if (taxId.HasValue()) request.AddParameter("tax_id", taxId);
             if (email.HasValue()) request.AddParameter("email", email);
             if (description.HasValue()) request.AddParameter("description", description);
-            if (card != null) card.AddParametersToRequest_Old(request);
+            if (card != null) card.AddParametersToRequest_Card(request);
             if (bankAccount != null) bankAccount.AddParametersToRequest(request);
 
             return ExecuteObject(request);
@@ -67,7 +67,7 @@ namespace Stripe
             if (email.HasValue()) request.AddParameter("email", email);
             if (description.HasValue()) request.AddParameter("description", description);
             if (bankAccount != null) bankAccount.AddParametersToRequest(request);
-            if (card != null) card.AddParametersToRequest_Old(request);
+            if (card != null) card.AddParametersToRequest_Card(request);
 
             return ExecuteObject(request);
         }
