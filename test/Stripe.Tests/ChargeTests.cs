@@ -72,5 +72,15 @@ namespace Stripe.Tests
             Assert.False(response.IsError);
             Assert.True(response.Any());
         }
+
+        [Fact]
+        public void SecurityCharge_Test()
+        {
+            _client = new StripeClient(Constants.ApiKey, null, "https://api-tls12.stripe.com/");
+            dynamic response = _client.CreateCharge(100M, "usd", _customer.Id);
+
+            Assert.NotNull(response);
+            Assert.False(response.IsError);
+        }
     }
 }

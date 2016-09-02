@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Web.Script.Serialization;
 using RestSharp;
+using System.Net;
 
 namespace Stripe
 {
@@ -16,11 +17,11 @@ namespace Stripe
         private readonly RestClient _client;
 
         public StripeClient(string apiKey)
-            : this(apiKey, null)
+            : this(apiKey, null, null)
         {
         }
 
-        public StripeClient(string apiKey, string apiVersion)
+        public StripeClient(string apiKey, string apiVersion, string apiEndpoint)
         {
             ApiVersion = "v1";
             ApiEndpoint = "https://api.stripe.com/";
@@ -34,7 +35,7 @@ namespace Stripe
             _client = new RestClient();
             _client.UserAgent = "stripe-dotnet/" + version;
             _client.Authenticator = new StripeAuthenticator(apiKey);
-            _client.BaseUrl = new Uri(String.Format("{0}{1}", ApiEndpoint, ApiVersion));
+            _client.BaseUrl = new Uri(String.Format("{0}{1}", string.IsNullOrWhiteSpace(apiEndpoint) ? ApiEndpoint : apiEndpoint, ApiVersion));
 
             if (apiVersion.HasValue())
                 _client.AddDefaultParameter("Stripe-Version", apiVersion, ParameterType.HttpHeader);
@@ -54,6 +55,8 @@ namespace Stripe
                 if (((int)resp.StatusCode) >= 400)
                     request.RootElement = "";
             };
+
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)192 | (SecurityProtocolType)768 | (SecurityProtocolType)3072;
 
             var response = _client.Execute(request);
             var json = Deserialize(response.Content);
@@ -77,6 +80,8 @@ namespace Stripe
                 if (((int)resp.StatusCode) >= 400)
                     request.RootElement = "";
             };
+
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)192 | (SecurityProtocolType)768 | (SecurityProtocolType)3072;
 
             var response = _client.Execute(request);
             var json = Deserialize(response.Content);
