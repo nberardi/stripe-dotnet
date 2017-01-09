@@ -43,7 +43,7 @@ namespace Stripe.Tests
 
             dynamic refund = _client.CreateRefund(charge.Id);
 
-            dynamic response = _client.RetrieveRefund(refund.Id, charge.Id);
+            dynamic response = _client.RetrieveRefund(refund.Id);
 
             Assert.NotNull(response);
             Assert.False(response.IsError);
@@ -61,7 +61,7 @@ namespace Stripe.Tests
 
             metaData["Shipping"] = "FedEx";
 
-            dynamic response = _client.UpdateRefund(charge.Id, refund.Id, metaData: metaData);
+            dynamic response = _client.UpdateRefund(refund.Id, metaData: metaData);
 
             Assert.NotNull(response);
             Assert.False(response.IsError);
